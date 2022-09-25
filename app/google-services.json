@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "135755654512",
+    "project_id": "alarmfinalprojectnardeen",
+    "storage_bucket": "alarmfinalprojectnardeen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135755654512:android:07fb937912ca6693159bb5",
+        "android_client_info": {
+          "package_name": "ow.nardeen.alarmfinalprojectnardeen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135755654512-fiivvndigq0rd06kk7vdgt7dj33n4alm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR3ALz0D6yp8yPgoL3vjbj_oyW2CikSME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135755654512-fiivvndigq0rd06kk7vdgt7dj33n4alm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
