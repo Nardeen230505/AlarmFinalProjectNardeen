@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Nardeen2022/AlarmFinalProjectNardeen/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.133" />
+        <entry key="..\:/Nardeen2022/AlarmFinalProjectNardeen/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1965" />
+        <entry key="..\:/Nardeen2022/AlarmFinalProjectNardeen/app/src/main/res/layout/activity_sign_up.xml" value="0.17806484295845998" />
+        <entry key="..\:/Nardeen2022/AlarmFinalProjectNardeen/app/src/main/res/layout/activity_sihgn_in.xml" value="0.17806484295845998" />
         <entry key="..\:/Nardeen2022/AlarmFinalProjectNardeen/app/src/main/res/layout/activity_splash_screen.xml" value="0.34782608695652173" />
       </map>
     </option>
