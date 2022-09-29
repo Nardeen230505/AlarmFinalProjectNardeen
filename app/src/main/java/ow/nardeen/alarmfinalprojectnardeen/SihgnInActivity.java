@@ -16,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SihgnInActivity extends AppCompatActivity {
-
+// تعريف صفات الكلاس
     private TextInputEditText etEmail;
     private TextInputEditText etPassword;
     private Button btnSignIn;
@@ -24,26 +24,27 @@ public class SihgnInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        // هاي الدالة
+        super.onCreate(savedInstanceState); //استدعاء الدالة onCreate
         setContentView(R.layout.activity_sihgn_in);
-
+        //تعريف الحقول
         etEmail=findViewById(R.id.etEmail);
         etPassword=findViewById(R.id.etPassword);
         btnSignIn=findViewById(R.id.btnSignIn);
         btnSignUp=findViewById(R.id.btnSignUp);
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+        btnSignUp.setOnClickListener(new View.OnClickListener() { //تعريف حدث الكبسة على الزر ساين ان
             @Override
-            public void onClick(View view) {
-                Intent iF=new Intent(SihgnInActivity.this, SignUpActivity.class);
-                startActivity(iF);
+            public void onClick(View view) { //معالجة حدث الدالة الي بتشتغل بعد حدوث الحدث
+                Intent iF=new Intent(SihgnInActivity.this, SignUpActivity.class); //الانتقال من الشاشة ساين ان للشاشة ساين اب
+                startActivity(iF); //عملة التفعيل الي بتخلي يصير في انتقال من بين الشاشات
             }
         });
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkAndSave();
-            }
+            } // استدعاء الدالة checkAndSave وتطبيق كل ما فيها
         });
     }
 
@@ -72,7 +73,7 @@ public class SihgnInActivity extends AppCompatActivity {
             FirebaseAuth auth=FirebaseAuth.getInstance();
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                public void onComplete(@NonNull Task<AuthResult> task) { //دالة تؤكد اذا كلو زابط
                     if (task.isSuccessful()){
                         Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(SihgnInActivity.this,MainActivity.class);
@@ -82,6 +83,7 @@ public class SihgnInActivity extends AppCompatActivity {
 
                     else{
                         Toast.makeText(SihgnInActivity.this, "NOT SUCCESSFUL" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        // التوست بخليه يطلعلنا زي هودعا لفترة صغيرة من الوقت بكون مكتوب فيها شو انا كاتبة بين القوسين
                     }
                 }
             });
