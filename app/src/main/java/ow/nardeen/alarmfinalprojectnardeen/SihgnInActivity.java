@@ -23,8 +23,10 @@ public class SihgnInActivity extends AppCompatActivity {
     private Button btnSignUp;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//When an Activity first call or launched then onCreate(Bundle savedInstanceState) method is responsible to create the activity.
+//After Orientation changed then onCreate(Bundle savedInstanceState) will call and recreate the activity and load all data from savedInstanceState.
         // هاي الدالة
+        //اول اشي بشتغل لما نشغل البرنامج
         super.onCreate(savedInstanceState); //استدعاء الدالة onCreate
         setContentView(R.layout.activity_sihgn_in);
         //تعريف الحقول
@@ -42,13 +44,14 @@ public class SihgnInActivity extends AppCompatActivity {
         });
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {  // استدعاء الدالة checkAndSave
+                //Register a callback to be invoked when this view is clicked. If this view is not clickable, it becomes clickable.
                 checkAndSave();
             } // استدعاء الدالة checkAndSave وتطبيق كل ما فيها
         });
     }
 
-    private void checkAndSave()
+    private void checkAndSave() //عملية تفحص اذا كل اشي تمام
     {
         String email=etEmail.getText().toString();
         String password=etPassword.getText().toString();
