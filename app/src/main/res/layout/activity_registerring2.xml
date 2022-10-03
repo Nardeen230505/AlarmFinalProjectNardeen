@@ -10,8 +10,8 @@
     <TextView
         android:id="@+id/etRigestered"
         android:layout_width="match_parent"
-        android:layout_height="174dp"
-        android:text="Do You Registered?"
+        android:layout_height="466dp"
+        android:text="Have you been registered?"
         android:textColor="?attr/colorSecondaryVariant"
         android:textSize="60sp"
         tools:layout_editor_absoluteX="0dp"
@@ -27,6 +27,8 @@
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:text="YES"
+            app:rippleColor="@color/purple_200"
+            android:backgroundTint="@color/teal_700"
             tools:layout_editor_absoluteX="264dp"
             tools:layout_editor_absoluteY="308dp" />
 
@@ -35,6 +37,10 @@
             android:layout_width="194dp"
             android:layout_height="wrap_content"
             android:text="NO"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/teal_700"
+            android:textColorHighlight="@color/material_dynamic_secondary10"
+            android:textColorHint="@android:color/holo_orange_dark"
             tools:layout_editor_absoluteX="21dp"
             tools:layout_editor_absoluteY="313dp" />
     </LinearLayout>

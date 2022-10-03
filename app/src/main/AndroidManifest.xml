@@ -12,6 +12,9 @@
         android:theme="@style/Theme.AlarmFinalProjectNardeen"
         tools:targetApi="31">
         <activity
+            android:name=".AlarmClockActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterringActivity"
             android:exported="false" />
         <activity
