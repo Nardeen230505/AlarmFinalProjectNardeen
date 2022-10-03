@@ -15,9 +15,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
-    private TextInputEditText etEmailSignUp;
-    private TextInputEditText etPasswordSignUp;
-    private TextInputEditText RepasswordSignUp;
+    private TextInputEditText etNameSignUp;
+    private TextInputEditText etPhoneNumber;
+    private TextInputEditText etRePhoneNumber;
     private Button btnSaveSignUp;
 
     @Override
@@ -27,9 +27,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);//اول اشي بشتغل لما نشغل البرنامج
         setContentView(R.layout.activity_sign_up);
 
-        etEmailSignUp = findViewById(R.id.etEmailSignUp);
-        etPasswordSignUp = findViewById(R.id.etPasswordSignUp);
-        RepasswordSignUp = findViewById(R.id.RePasswordSignUp);
+        etNameSignUp = findViewById(R.id.etNameSignUp);
+        etPhoneNumber = findViewById(R.id.etPhoneNumber);
+        etRePhoneNumber = findViewById(R.id.etRePhoneNumber);
         btnSaveSignUp = findViewById(R.id.btnSaveSignUp);
 
         btnSaveSignUp.setOnClickListener(new View.OnClickListener() {
@@ -41,18 +41,18 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void CheckAndSave() {
-        String emailSU = etEmailSignUp.getText().toString();
-        String passwordSU = etPasswordSignUp.getText().toString();
-        String rePasswprdSU = RepasswordSignUp.getText().toString();
+        String emailSU = etNameSignUp.getText().toString();
+        String passwordSU = etPhoneNumber.getText().toString();
+        String rePasswprdSU = etRePhoneNumber.getText().toString();
 
         boolean isOk = true;
         if (emailSU.length() * passwordSU.length() * rePasswprdSU.length() == 0) {
-            etEmailSignUp.setError("One of the files is empty");
+            etNameSignUp.setError("One of the files is empty");
             isOk = false;
         }
 
         if (passwordSU.equals(rePasswprdSU) == false) {
-            RepasswordSignUp.setError("Is not equal to password");
+            etRePhoneNumber.setError("Is not equal to password");
             isOk = false;
         }
 

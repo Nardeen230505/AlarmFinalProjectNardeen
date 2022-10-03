@@ -30,8 +30,8 @@ public class SihgnInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState); //استدعاء الدالة onCreate
         setContentView(R.layout.activity_sihgn_in);
         //تعريف الحقول
-        etEmail=findViewById(R.id.etEmail);
-        etPassword=findViewById(R.id.etPassword);
+        etEmail=findViewById(R.id.etName);
+        etPassword=findViewById(R.id.etPhoneNumberSI);
         btnSignIn=findViewById(R.id.btnSignIn);
         btnSignUp=findViewById(R.id.btnSignUp);
 
@@ -76,7 +76,8 @@ public class SihgnInActivity extends AppCompatActivity {
             FirebaseAuth auth=FirebaseAuth.getInstance();
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) { //دالة تؤكد اذا كلو زابط
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    //دالة تؤكد اذا كلو زابط
                     if (task.isSuccessful()){
                         Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(SihgnInActivity.this,MainActivity.class);

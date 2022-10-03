@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".RegisterringActivity">
+
+    <TextView
+        android:id="@+id/etRigestered"
+        android:layout_width="match_parent"
+        android:layout_height="174dp"
+        android:text="Do You Registered?"
+        android:textColor="?attr/colorSecondaryVariant"
+        android:textSize="60sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="75dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnYes"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:text="YES"
+            tools:layout_editor_absoluteX="264dp"
+            tools:layout_editor_absoluteY="308dp" />
+
+        <Button
+            android:id="@+id/btnNo"
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:text="NO"
+            tools:layout_editor_absoluteX="21dp"
+            tools:layout_editor_absoluteY="313dp" />
+    </LinearLayout>
+
+</LinearLayout>
