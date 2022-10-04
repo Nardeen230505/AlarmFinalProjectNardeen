@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class RegisterringActivity extends AppCompatActivity {
+/*public class RegisterringActivity extends AppCompatActivity {
     private TextView etRigestered;
     private Button btnYes;
     private Button btnNo;
@@ -44,4 +44,4 @@ public class RegisterringActivity extends AppCompatActivity {
     }
 
 
-}
+}*/

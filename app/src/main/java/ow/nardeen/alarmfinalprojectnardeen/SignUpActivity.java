@@ -41,33 +41,33 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void CheckAndSave() {
-        String emailSU = etNameSignUp.getText().toString();
-        String passwordSU = etPhoneNumber.getText().toString();
-        String rePasswprdSU = etRePhoneNumber.getText().toString();
+        String NameSU = etNameSignUp.getText().toString();
+        String PhoneNumberSU = etPhoneNumber.getText().toString();
+        String RePhoneNumberSU = etRePhoneNumber.getText().toString();
 
         boolean isOk = true;
-        if (emailSU.length() * passwordSU.length() * rePasswprdSU.length() == 0) {
+        if (NameSU.length() * PhoneNumberSU.length() * RePhoneNumberSU.length() == 0) {
             etNameSignUp.setError("One of the files is empty");
             isOk = false;
         }
 
-        if (passwordSU.equals(rePasswprdSU) == false) {
+        if (PhoneNumberSU.equals(RePhoneNumberSU) == false) {
             etRePhoneNumber.setError("Is not equal to password");
             isOk = false;
         }
 
         if (isOk) {
             FirebaseAuth authSU = FirebaseAuth.getInstance();
-            authSU.createUserWithEmailAndPassword(emailSU, passwordSU).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            authSU.createUserWithEmailAndPassword(NameSU, PhoneNumberSU).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
-                        Toast.makeText(SignUpActivity.this, "Email and password are saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Email and phoneNumber are saved", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else{
-                        Toast.makeText(SignUpActivity.this, "Saving the e-mail and passwrd is failed!"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Saving the name and phoneNumber is failed!"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 

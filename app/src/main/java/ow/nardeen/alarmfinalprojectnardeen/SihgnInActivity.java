@@ -17,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SihgnInActivity extends AppCompatActivity {
 // تعريف صفات الكلاس
-    private TextInputEditText etEmail;
-    private TextInputEditText etPassword;
+    private TextInputEditText etName;
+    private TextInputEditText etPhoneNumberSI;
     private Button btnSignIn;
     private Button btnSignUp;
 
@@ -30,8 +30,8 @@ public class SihgnInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState); //استدعاء الدالة onCreate
         setContentView(R.layout.activity_sihgn_in);
         //تعريف الحقول
-        etEmail=findViewById(R.id.etName);
-        etPassword=findViewById(R.id.etPhoneNumberSI);
+        etName=findViewById(R.id.etName);
+        etPhoneNumberSI=findViewById(R.id.etPhoneNumberSI);
         btnSignIn=findViewById(R.id.btnSignIn);
         btnSignUp=findViewById(R.id.btnSignUp);
 
@@ -53,28 +53,28 @@ public class SihgnInActivity extends AppCompatActivity {
 
     private void checkAndSave() //عملية تفحص اذا كل اشي تمام
     {
-        String email=etEmail.getText().toString();
-        String password=etPassword.getText().toString();
+        String name=etName.getText().toString();
+        String phoneNumber=etPhoneNumberSI.getText().toString();
 
         boolean isOk=true;
-        if (email.length()==0){
-            etEmail.setError("Enter your password pls");
+        if (name.length()==0){
+            etName.setError("Enter your password pls");
             isOk=false;
         }
 
-        if (password.indexOf('@')<=0){
-            etEmail.setError("Wrong email syntax");
+      /*  if (password.indexOf('@')<=0){
+            etName.setError("Wrong phone number syntax");
             isOk=false;
-        }
+        }*/
 
-        if (password.length()<7){
-            etPassword.setError("password at least 7 characters");
+        if (phoneNumber.length()<10){
+            etPhoneNumberSI.setError("phone number at least 10 characters");
             isOk=false;
         }
 
         if (isOk){
             FirebaseAuth auth=FirebaseAuth.getInstance();
-            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.signInWithEmailAndPassword(name,phoneNumber).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     //دالة تؤكد اذا كلو زابط
