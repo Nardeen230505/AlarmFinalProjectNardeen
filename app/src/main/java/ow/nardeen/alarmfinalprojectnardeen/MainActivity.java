@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -37,174 +38,167 @@ public class MainActivity extends AppCompatActivity {
         otp = findViewById(R.id.otp);
         btngenOTP = findViewById(R.id.btnGenerateOTP);
         btnverify = findViewById(R.id.btnverifyOTP);
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         btngenOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(phone.getText().toString()))
-                {
+                if (TextUtils.isEmpty(phone.getText().toString())) {
                     Toast.makeText(MainActivity.this, "Enter Valid Phone NO.", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    String number=phone.getText().toString();
-                    sendverificationcode(number);
+                } else {
+                    String number = phone.getText().toString();
+                    //sendverificationcode(number);
                 }
 
             }
-
-            private void sendverificationcode(String phoneNumber)
-            {
-                PhoneAuthOptions options =
-                        PhoneAuthOptions.newBuilder(mAuth)
-                                .setPhoneNumber("+972"phoneNumber)       // Phone number to verify
-                                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                                .setActivity(this)                 // Activity (for callback binding)
-                                .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                                .build();
-                PhoneAuthProvider.verifyPhoneNumber(options);
-            }
-
-            private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-                @Override
-                public void onVerificationCompleted(@NonNull PhoneAuthCredential credential)
-                {
-                    // This callback will be invoked in two situations:
-                    // 1 - Instant verification. In some cases the phone number can be instantly
-                    //     verified without needing to send or enter a verification code.
-                    // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                    //     detect the incoming verification SMS and perform verification without
-                    //     user action.
-
-                    final String code = credential.getSmsCode();
-                    if (code!=null)
-                    {
-                        verifycode(code);
-                    }
-                }
-
-                private void verifycode(String code)
-                {
-                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID,Code );
-                    signinbyCredentials(credential);
-                }
-
-                private void signinbyCredentials(PhoneAuthCredential credential)
-                {
-                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                    firebaseAuth.signInWithEmailAndPassword(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task)
-                        {
-                            if (task.isSuccessful())
-                            {
-                                Toast.makeText(MainActivity.this, "Login Successful" , Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                            }
-                        }
-                    });
-                }
-
-                @Override
-                public void onVerificationFailed(@NonNull FirebaseException e) {
-                    // This callback is invoked in an invalid request for verification is made,
-                    // for instance if the the phone number format is not valid.
-                    Toast.makeText(MainActivity.this,"Verification failed" , Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onCodeSent(@NonNull String verificationId,
-                        @NonNull PhoneAuthProvider.ForceResendingToken token)
-                {
-                    // The SMS verification code has been sent to the provided phone number, we
-                    // now need to ask the user to enter the code and then construct a credential
-                    // by combining the code with a verification ID.
-
-                    super.onCodeSent(s,token);
-                    verificationId = s;
-
-                }
-            };
         });
-
-        btnverify.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if (TextUtils.isEmpty(otp.getText().toString()))
-                {
-                    Toast.makeText(MainActivity.this, "Wrong OTP Entared", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    verifcode(otp.getText().toString());
-
-                }
-            }
-
-            private void sendverificationcode() {
-            }
-
-            private void verifcode() {
-            }
-
-        });
-
-        private void sendverificationcode(String phoneNumber)
-        {
-            PhoneAuthOptions options =
-                    PhoneAuthOptions.newBuilder(mAuth)
-                            .setPhoneNumber("+972"phoneNumber)       // Phone number to verify
-                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                            .setActivity(this)                 // Activity (for callback binding)
-                            .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                            .build();
-            PhoneAuthProvider.verifyPhoneNumber(options);
-        }
-
-        private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-                mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-            @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential)
-            {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
-
-                final String code = credential.getSmsCode();
-                if (code!=null)
-                {
-                    verifycode(code);
-                }
-            }
-
-            private void verifycode(String code)
-            {
-                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID,Code );
-                signinbyCredentials(credential);
-            }
-
-            private void signinbyCredentials(PhoneAuthCredential credential)
-            {
-                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-                firebaseAuth.signInWithEmailAndPassword(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
-                        if (task.isSuccessful())
-                        {
-                            Toast.makeText(MainActivity.this, "Login Successful" , Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                        }
-                    }
-                });
-
     }
 }
+
+//            private void sendverificationcode(String phoneNumber) {
+//                PhoneAuthOptions options =
+//                        PhoneAuthOptions.newBuilder(mAuth)
+//                                .setPhoneNumber("+972"phoneNumber)       // Phone number to verify
+//                                .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+//                                .setActivity(this)                 // Activity (for callback binding)
+//                                .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+//                                .build();
+//                PhoneAuthProvider.verifyPhoneNumber(options);
+//            }
+//
+//            private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+//                    mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//
+//                @Override
+//                public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
+//                    // This callback will be invoked in two situations:
+//                    // 1 - Instant verification. In some cases the phone number can be instantly
+//                    //     verified without needing to send or enter a verification code.
+//                    // 2 - Auto-retrieval. On some devices Google Play services can automatically
+//                    //     detect the incoming verification SMS and perform verification without
+//                    //     user action.
+//
+//                    final String code = credential.getSmsCode();
+//                    if (code != null) {
+//                        verifycode(code);
+//                    }
+//                }
+//
+//                private void verifycode(String code) {
+//                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID, Code);
+//                    signinbyCredentials(credential);
+//                }
+//
+//                private void signinbyCredentials(PhoneAuthCredential credential) {
+//                    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//                    firebaseAuth.signInWithEmailAndPassword(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+//                            }
+//                        }
+//                    });
+//                }
+//
+//                @Override
+//                public void onVerificationFailed(@NonNull FirebaseException e) {
+//                    // This callback is invoked in an invalid request for verification is made,
+//                    // for instance if the the phone number format is not valid.
+//                    Toast.makeText(MainActivity.this, "Verification failed", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onCodeSent(@NonNull String verificationId,
+//                                       @NonNull PhoneAuthProvider.ForceResendingToken token) {
+//                    // The SMS verification code has been sent to the provided phone number, we
+//                    // now need to ask the user to enter the code and then construct a credential
+//                    // by combining the code with a verification ID.
+//
+//                    super.onCodeSent(s, token);
+//                    verificationId = s;
+//
+//                }
+//            };
+//        });
+//
+//        btnverify.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (TextUtils.isEmpty(otp.getText().toString())) {
+//                    Toast.makeText(MainActivity.this, "Wrong OTP Entared", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    verifcode(otp.getText().toString());
+//
+//                }
+//            }
+//
+//            private void sendverificationcode() {
+//            }
+//
+//            private void verifcode(String s) {
+//            }
+//
+//        });
+//
+//        private void sendverificationcode (String phoneNumber)
+//        {
+//            PhoneAuthOptions options =
+//                    PhoneAuthOptions.newBuilder(mAuth)
+//                            .setPhoneNumber("+972"phoneNumber)       // Phone number to verify
+//                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+//                            .setActivity(this)                 // Activity (for callback binding)
+//                            .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+//                            .build();
+//            PhoneAuthProvider.verifyPhoneNumber(options);
+//        }
+//
+//        private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+//                mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//
+//            @Override
+//            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
+//                // This callback will be invoked in two situations:
+//                // 1 - Instant verification. In some cases the phone number can be instantly
+//                //     verified without needing to send or enter a verification code.
+//                // 2 - Auto-retrieval. On some devices Google Play services can automatically
+//                //     detect the incoming verification SMS and perform verification without
+//                //     user action.
+//
+//                final String code = credential.getSmsCode();
+//                if (code != null) {
+//                    verifycode(code);
+//                }
+//            }
+//
+//            private void verifycode(String code) {
+//                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID, code);
+//                signinbyCredentials(credential);
+//            }
+//
+//            private void signinbyCredentials(PhoneAuthCredential credential) {
+//                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//                firebaseAuth.signInWithEmailAndPassword(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+//                        }
+//                    }
+//                });
+//
+//            }
+//
+//            protected void onStart() {
+//                super.onStart();
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                if (currentUser != null) {
+//                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+//                    finish();
+//                }
+//
+//            }
+//        }
+//}

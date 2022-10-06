@@ -6,39 +6,35 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".SignUpActivity">
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:drawableLeft="@drawable/account"
+        android:hint="  E-mail"
+        tools:ignore="HardCodeText,RtlHardcoded" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNameSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/etPasswordSignUp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:drawableLeft="@drawable/password"
+        android:hint="Password"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone-Number" />
-    </com.google.android.material.textfield.TextInputLayout>
+        tools:ignore="HardCodeText,RtlHardcoded" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/etRePassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:drawableLeft="@drawable/password"
+        android:hint="Re-Password"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etRePhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Re-PhoneNumber" />
-    </com.google.android.material.textfield.TextInputLayout>
+        tools:ignore="HardCodeText,RtlHardcoded" />
+
 
     <Button
         android:id="@+id/btnSaveSignUp"

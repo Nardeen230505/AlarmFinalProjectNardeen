@@ -4,29 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:layout_margin="10dp">
+    android:layout_margin="10dp"
+    android:background="@drawable/download"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Your Phone NO."
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:textSize="20dp"
-        android:layout_centerHorizontal="true"
-         />
+        android:text="Enter Your Phone NO."
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone NO."
-        android:inputType="phone"
+        android:layout_below="@+id/text"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/text"/>
-    
+        android:hint="Phone NO."
+        android:inputType="phone" />
+
     <Button
         android:id="@+id/btnGenerateOTP"
         android:layout_width="match_parent"
@@ -40,10 +40,10 @@
         android:id="@+id/otp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="OTP"
-        android:inputType="number"
+        android:layout_below="@+id/btnGenerateOTP"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/btnGenerateOTP"/>
+        android:hint="OTP"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/btnverifyOTP"

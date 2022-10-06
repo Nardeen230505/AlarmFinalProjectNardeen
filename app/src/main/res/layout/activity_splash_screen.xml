@@ -4,22 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/download"
     android:orientation="vertical"
-    tools:context=".SplashScreen">
+    tools:context=".SplashScreen" >
 
     <TextView
-        android:id="@+id/txtView"
+        android:id="@+id/tvWelcme"
         android:layout_width="match_parent"
-        android:layout_height="452dp"
-        android:layout_weight="1"
-        android:text="Welcome"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="96sp" />
-
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:layout_weight="1"
-        android:text="Next" />
+        android:layout_height="wrap_content"
+        android:text="WELCOME"
+        android:textColor="@color/black"
+        android:textSize="48sp" />
 </LinearLayout>

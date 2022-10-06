@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,9 +16,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
-    private TextInputEditText etNameSignUp;
-    private TextInputEditText etPhoneNumber;
-    private TextInputEditText etRePhoneNumber;
+    private EditText etEmail;
+    private EditText etPasswordSignUp;
+    private EditText etRePassword;
     private Button btnSaveSignUp;
 
     @Override
@@ -27,9 +28,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);//اول اشي بشتغل لما نشغل البرنامج
         setContentView(R.layout.activity_sign_up);
 
-        etNameSignUp = findViewById(R.id.etNameSignUp);
-        etPhoneNumber = findViewById(R.id.etPhoneNumber);
-        etRePhoneNumber = findViewById(R.id.etRePhoneNumber);
+        etEmail = findViewById(R.id.etEmail);
+        etPasswordSignUp = findViewById(R.id.etPasswordSignUp);
+        etRePassword = findViewById(R.id.etRePassword);
         btnSaveSignUp = findViewById(R.id.btnSaveSignUp);
 
         btnSaveSignUp.setOnClickListener(new View.OnClickListener() {
@@ -41,18 +42,18 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void CheckAndSave() {
-        String NameSU = etNameSignUp.getText().toString();
-        String PhoneNumberSU = etPhoneNumber.getText().toString();
-        String RePhoneNumberSU = etRePhoneNumber.getText().toString();
+        String NameSU = etEmail.getText().toString();
+        String PhoneNumberSU = etPasswordSignUp.getText().toString();
+        String RePhoneNumberSU = etRePassword.getText().toString();
 
         boolean isOk = true;
         if (NameSU.length() * PhoneNumberSU.length() * RePhoneNumberSU.length() == 0) {
-            etNameSignUp.setError("One of the files is empty");
+            etEmail.setError("One of the files is empty");
             isOk = false;
         }
 
         if (PhoneNumberSU.equals(RePhoneNumberSU) == false) {
-            etRePhoneNumber.setError("Is not equal to password");
+            etRePassword.setError("Is not equal to password");
             isOk = false;
         }
 
@@ -63,11 +64,11 @@ public class SignUpActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
                     {
-                        Toast.makeText(SignUpActivity.this, "Email and phoneNumber are saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Email and password are saved", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     else{
-                        Toast.makeText(SignUpActivity.this, "Saving the name and phoneNumber is failed!"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this, "Saving the name and password is failed!"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 

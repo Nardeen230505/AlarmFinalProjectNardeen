@@ -7,18 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SihgnInActivity extends AppCompatActivity {
 // تعريف صفات الكلاس
-    private TextInputEditText etName;
-    private TextInputEditText etPhoneNumberSI;
+    private EditText etEmail;
+    private EditText etPassword;
     private Button btnSignIn;
     private Button btnSignUp;
 
@@ -30,8 +30,8 @@ public class SihgnInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState); //استدعاء الدالة onCreate
         setContentView(R.layout.activity_sihgn_in);
         //تعريف الحقول
-        etName=findViewById(R.id.etName);
-        etPhoneNumberSI=findViewById(R.id.etPhoneNumberSI);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etRePassword);
         btnSignIn=findViewById(R.id.btnSignIn);
         btnSignUp=findViewById(R.id.btnSignUp);
 
@@ -53,28 +53,28 @@ public class SihgnInActivity extends AppCompatActivity {
 
     private void checkAndSave() //عملية تفحص اذا كل اشي تمام
     {
-        String name=etName.getText().toString();
-        String phoneNumber=etPhoneNumberSI.getText().toString();
+        String email=etEmail.getText().toString();
+        String password=etPassword.getText().toString();
 
         boolean isOk=true;
-        if (name.length()==0){
-            etName.setError("Enter your password pls");
+        if (email.length()==0){
+            etEmail.setError("Enter your password pls");
             isOk=false;
         }
 
-      /*  if (password.indexOf('@')<=0){
-            etName.setError("Wrong phone number syntax");
+       if (email.indexOf('@')<=0){
+           etEmail.setError("Wrong email syntax");
             isOk=false;
-        }*/
+        }
 
-        if (phoneNumber.length()<10){
-            etPhoneNumberSI.setError("phone number at least 10 characters");
+        if (password.length()<7){
+            etPassword.setError("Email at least 7 characters");
             isOk=false;
         }
 
         if (isOk){
             FirebaseAuth auth=FirebaseAuth.getInstance();
-            auth.signInWithEmailAndPassword(name,phoneNumber).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     //دالة تؤكد اذا كلو زابط
