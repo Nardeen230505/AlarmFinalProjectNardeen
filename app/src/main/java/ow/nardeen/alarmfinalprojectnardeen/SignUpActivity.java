@@ -41,25 +41,25 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void CheckAndSave() {
-        String NameSU = etEmail.getText().toString();
-        String PhoneNumberSU = etPasswordSignUp.getText().toString();
-        String RePhoneNumberSU = etRePassword.getText().toString();
+        private void CheckAndSave() {
+        String EmailSU = etEmail.getText().toString();
+        String password = etPasswordSignUp.getText().toString();
+        String RePassword = etRePassword.getText().toString();
 
         boolean isOk = true;
-        if (NameSU.length() * PhoneNumberSU.length() * RePhoneNumberSU.length() == 0) {
+        if (EmailSU.length() * password.length() * RePassword.length() == 0) {
             etEmail.setError("One of the files is empty");
             isOk = false;
         }
 
-        if (PhoneNumberSU.equals(RePhoneNumberSU) == false) {
+        if (password.equals(RePassword) == false) {
             etRePassword.setError("Is not equal to password");
             isOk = false;
         }
 
         if (isOk) {
             FirebaseAuth authSU = FirebaseAuth.getInstance();
-            authSU.createUserWithEmailAndPassword(NameSU, PhoneNumberSU).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            authSU.createUserWithEmailAndPassword(EmailSU, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())

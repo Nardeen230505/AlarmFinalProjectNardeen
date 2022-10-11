@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
@@ -18,9 +20,20 @@ public class SplashScreen extends AppCompatActivity {
         Runnable r=new Runnable() {
             @Override
             public void run() {
-                Intent i=new Intent(SplashScreen.this,SihgnInActivity.class); //الانتقال من شاشة لشاشة عن طريق الكائنi
-                startActivity(i); //بدء تشغيل الشاشة
-                finish(); //لتسكير الشاشة
+                // فحص هل تم االدخول مسبقا
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                if (auth.getCurrentUser() == null) {
+                    Intent i = new Intent(SplashScreen.this, SihgnInActivity.class); //الانتقال من شاشة لشاشة عن طريق الكائنi
+                    startActivity(i); //بدء تشغيل الشاشة
+                    finish(); //لتسكير الشاشة
+                }
+                else {
+                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    startActivity(i);
+
+                    finish();
+
+                }
             }
         };
         h.postDelayed(r,2000);
