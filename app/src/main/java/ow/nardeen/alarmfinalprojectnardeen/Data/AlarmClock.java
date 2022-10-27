@@ -1,4 +1,7 @@
 package ow.nardeen.alarmfinalprojectnardeen.Data;
+
+import java.util.Date;
+
 //  نهذا الكلاس هو عبارة عن كائن الي هو ساعة وكمان بكتب بالكلاس كل صفات هاد الكائن
 public class AlarmClock
 {
@@ -6,7 +9,11 @@ public class AlarmClock
     private int hour;
     private int minute;
     private int seconds;
+    private int phNo;
+    private int month;
+    private String task;
     private String day;
+
 
     public AlarmClock() { //دالة بريرات محرال بتعطي قيم بدائية للصفات عند استدعائها
 
@@ -22,9 +29,6 @@ public class AlarmClock
         return seconds;
     }
 
-    public String getDay() {
-        return day;
-    }
 
     public void setHour(int hour) {
         this.hour = hour;
@@ -38,16 +42,49 @@ public class AlarmClock
         this.seconds = seconds;
     }
 
+
+    public int getPhNo() {
+        return phNo;
+    }
+
+    public void setPhNo(int phNo) {
+        this.phNo = phNo;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public String getTask() {
+        return task;
+    }
+
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
     public void setDay(String day) {
         this.day = day;
     }
 
     @Override //دالة toString
+
     public String toString() {
         return "AlarmClock{" +
                 "hour=" + hour +
                 ", minute=" + minute +
                 ", seconds=" + seconds +
+                ", phNo=" + phNo +
+                ", month=" + month +
+                ", task='" + task + '\'' +
                 ", day='" + day + '\'' +
                 '}';
     }

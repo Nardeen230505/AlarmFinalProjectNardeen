@@ -6,9 +6,9 @@
         android:id="@+id/itmSettingsF"
         android:title="Settings" />
     <item
-        android:id="@+id/itmHistoryF"
+        android:id="@+id/itmAddAlarm"
         android:icon="@android:drawable/ic_lock_idle_alarm"
-        android:title="History"
+        android:title="AddAlarm"
         app:showAsAction="always|withText" />
     <item
         android:id="@+id/itmSignOutF"

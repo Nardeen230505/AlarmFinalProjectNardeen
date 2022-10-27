@@ -28,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish(); //لتسكير الشاشة
                 }
                 else {
-                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
+                    Intent i = new Intent(SplashScreen.this, MainActivity2.class);
                     startActivity(i);
 
                     finish();

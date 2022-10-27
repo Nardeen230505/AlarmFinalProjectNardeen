@@ -80,7 +80,7 @@ public class SihgnInActivity extends AppCompatActivity {
                     //دالة تؤكد اذا كلو زابط
                     if (task.isSuccessful()){
                         Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                        Intent i=new Intent(SihgnInActivity.this,MainActivity.class);
+                        Intent i=new Intent(SihgnInActivity.this,MainActivity2.class);
                         startActivity(i);
                         finish();
                     }

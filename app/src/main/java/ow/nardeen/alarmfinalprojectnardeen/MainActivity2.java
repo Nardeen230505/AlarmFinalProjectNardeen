@@ -53,16 +53,18 @@ public class MainActivity2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     // هذه الدالة عبارة عن ردة فعل لما بختار الحدث
     {
+
+
         if (item.getItemId()==R.id.itmSettingsF)
         {
             Intent intentS=new Intent(MainActivity2.this,SettingsActivityF.class);
             startActivity(intentS);
         }
 
-        if (item.getItemId()==R.id.itmHistoryF)
+        if (item.getItemId()==R.id.itmAddAlarm)
         {
-            Intent iH=new Intent(MainActivity2.this,HistoryActivityF.class);
-            startActivity(iH);
+            Intent iA=new Intent(MainActivity2.this,AddTaskActivity1.class);
+            startActivity(iA);
         }
 
         if (item.getItemId()==R.id.itmSignOutF)
