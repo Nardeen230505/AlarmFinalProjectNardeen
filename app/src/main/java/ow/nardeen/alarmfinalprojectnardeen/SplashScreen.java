@@ -16,6 +16,8 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen); //يبني واجهة المستعمل بحيث تبني كل الكائنات الموجودة بملف التنسيق xml
 
+        //Callback interface you can use when instantiating a Handler to avoid having to implement your own subclass of Handler.
+
         Handler h=new Handler(); // A Handler allows you to send and process message and Runnable objects associated with a thread's MessageQueue.
         //A Handler allows you to send and process Message and Runnable objects associated with a thread's MessageQueue.
         // Each Handler instance is associated with a single thread and that thread's message queue. When you create a new Handler it is bound to a Looper.
