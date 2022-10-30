@@ -45,7 +45,7 @@ public class MainActivity2 extends AppCompatActivity {
         //دالة مسؤولة عن تشغيل الmenu
         //دالة بوليانية ترجع ترو اذا كل اشي تمام
         //بعد ما بنيت المنيو لازم المنيو لما اعمل هرتسا
-        getMenuInflater().inflate(R.menu.menu,menu);
+        getMenuInflater().inflate(R.menu.menu,menu); //بناء واجهة اكس ام ال مرات واجهة لمنيو او واجهة لديالوج
         return true;
     }
 
@@ -58,9 +58,10 @@ public class MainActivity2 extends AppCompatActivity {
         if (item.getItemId()==R.id.itmSettingsF)
         {
             Intent intentS=new Intent(MainActivity2.this,SettingsActivityF.class);
-            startActivity(intentS);
+            startActivity(intentS); //الي بعطيني ابلش المهمة او الفعالية  - اي عن طريق startActivity انا زي الي بنادي على هاد الكائءن عشان بنقل من الشاشة الحالية للشاش الي بدي انقل عليها
         }
-
+        // الانتنت هو وصف للعملية المطلوب اجراؤها يمكن استخدامه مع startActivity لبدء النشاط او لارساله لأي من مكونات المهمة وللتواصل مع خدمة الخلفية
+        // الانتنت هو الي بساعدني انقل من شاشة لشاشة
         if (item.getItemId()==R.id.itmAddAlarm)
         {
             Intent iA=new Intent(MainActivity2.this,AddTaskActivity1.class);
@@ -72,10 +73,12 @@ public class MainActivity2 extends AppCompatActivity {
 
           //  FirebaseAuth.getInstance().signOut(); //تسجيل الخروج
            //finish();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this); //بنّاء الديالوج
             builder.setTitle("Signing Out");
             builder.setMessage("Do you want to sign out?");
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() { // هاي الدالة بتطلعلي زي هودعا صغيرة الي بقولولها ديالوج الي اذا ضغطت على الزر يس بسالي اذا مااكدة اني دطلع او لا
+                                                // هاد مأزين للضغط على الزر يس سيعتها بطلعلي ديالوج وبعمل شو مكتوب داخل الدالة
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
                 {

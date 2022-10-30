@@ -73,19 +73,20 @@ public class SihgnInActivity extends AppCompatActivity {
         }
 
         if (isOk){
-            FirebaseAuth auth=FirebaseAuth.getInstance();
+            FirebaseAuth auth=FirebaseAuth.getInstance(); // بناء كائن من نوع فاير بيس اوثينيكيشن
             auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                           // مأزين اذا تم التسجيل بنجاح او لا
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     //دالة تؤكد اذا كلو زابط
                     if (task.isSuccessful()){
-                        Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show(); // التوست هاي الي بتطلعلنا زي هودعا لفترة صغيرة من الوقت وبتطلعلنا شو كتبنا ببن جرشايم
                         Intent i=new Intent(SihgnInActivity.this,MainActivity2.class);
                         startActivity(i);
                         finish();
                     }
 
-                    else{
+                    else{                                                                   // بتخلي التاسك تعطي اعتراض الي فيو رسالة وبقلب الرسالة بكون مكتوب بين جرشايم
                         Toast.makeText(SihgnInActivity.this, "NOT SUCCESSFUL" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         // التوست بخليه يطلعلنا زي هودعا لفترة صغيرة من الوقت بكون مكتوب فيها شو انا كاتبة بين القوسين
                     }

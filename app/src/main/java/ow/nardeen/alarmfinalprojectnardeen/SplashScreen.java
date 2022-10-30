@@ -16,7 +16,15 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen); //يبني واجهة المستعمل بحيث تبني كل الكائنات الموجودة بملف التنسيق xml
 
-        Handler h=new Handler();
+        Handler h=new Handler(); // A Handler allows you to send and process message and Runnable objects associated with a thread's MessageQueue.
+        //A Handler allows you to send and process Message and Runnable objects associated with a thread's MessageQueue.
+        // Each Handler instance is associated with a single thread and that thread's message queue. When you create a new Handler it is bound to a Looper.
+        // It will deliver messages and runnables to that Looper's message queue and execute them on that Looper's thread.
+
+        //يسمح لك المعالج بإرسال ومعالجة الرسائل والكائنات القابلة للتشغيل المرتبطة بـ MessageQueue الخاصة بمؤشر الترابط.
+        // يتم إقران كل مثيل Handler بسلسلة رسائل فردية وقائمة انتظار رسائل هذا الموضوع. عندما تنشئ معالجًا جديدًا ، يكون مرتبطًا بـ Looper.
+        // سيقوم بتسليم الرسائل والقابلة للتشغيل إلى قائمة انتظار رسائل Looper وتنفيذها على مؤشر ترابط Looper هذا.
+
         Runnable r=new Runnable() {
             @Override
             public void run() {

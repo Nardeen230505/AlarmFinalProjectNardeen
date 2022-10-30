@@ -58,8 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (isOk) {
-            FirebaseAuth authSU = FirebaseAuth.getInstance();
+            FirebaseAuth authSU = FirebaseAuth.getInstance(); // بناء كائن من نوع فاير بيس اوثينيكيشن
             authSU.createUserWithEmailAndPassword(EmailSU, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                                    // مأزين اذا تم التسجيل بنجاح او لا
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful())
