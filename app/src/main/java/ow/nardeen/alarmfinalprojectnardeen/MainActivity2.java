@@ -16,6 +16,9 @@ import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * هاي الmain activity الشاشة الرتيسية
+ */
 public class MainActivity2 extends AppCompatActivity {
     //تعريف صفات الكلاس
     private SearchView search1;
@@ -54,8 +57,7 @@ public class MainActivity2 extends AppCompatActivity {
     // هذه الدالة عبارة عن ردة فعل لما بختار الحدث
     {
 
-
-        if (item.getItemId()==R.id.itmSettingsF)
+        if (item.getItemId()==R.id.itmSettingsF) //بفحص اذا الي عمل الحدث هو هاد السيتينج ف
         {
             Intent intentS=new Intent(MainActivity2.this,SettingsActivityF.class);
             startActivity(intentS); //الي بعطيني ابلش المهمة او الفعالية  - اي عن طريق startActivity انا زي الي بنادي على هاد الكائءن عشان بنقل من الشاشة الحالية للشاش الي بدي انقل عليها
@@ -81,6 +83,7 @@ public class MainActivity2 extends AppCompatActivity {
                                                 // هاد مأزين للضغط على الزر يس سيعتها بطلعلي ديالوج وبعمل شو مكتوب داخل الدالة
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i)
+                                    //واجهة للديالوج
                 {
                     dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
                     FirebaseAuth.getInstance().signOut(); //تسجيل الخروج - الخروج من الحساب

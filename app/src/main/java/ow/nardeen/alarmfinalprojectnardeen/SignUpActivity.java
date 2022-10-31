@@ -15,6 +15,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/*
+هاي شاشة الساين اب لتسجيل الدخول كـأول مرة
+ */
+
 public class SignUpActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPasswordSignUp;

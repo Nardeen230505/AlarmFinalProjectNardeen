@@ -21,6 +21,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task1);
+        //تعريف الحقول
 
         etPhone=findViewById(R.id.etPhone);
         etTask=findViewById(R.id.etTask);

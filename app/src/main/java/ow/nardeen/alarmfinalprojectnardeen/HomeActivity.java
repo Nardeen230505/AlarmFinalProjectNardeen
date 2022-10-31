@@ -18,6 +18,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        //تعريف الحقول
 
         mAuth=FirebaseAuth.getInstance();
         Logout = findViewById(R.id.Logout);

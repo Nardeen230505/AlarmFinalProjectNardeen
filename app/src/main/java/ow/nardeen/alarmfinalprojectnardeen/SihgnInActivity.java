@@ -15,6 +15,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/*
+هاي شاشة الساين ان لتسجيل الدخول اذا كان من قبل عندي حساب
+ */
 public class SihgnInActivity extends AppCompatActivity {
 // تعريف صفات الكلاس
     private EditText etEmail;
