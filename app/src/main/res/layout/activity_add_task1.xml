@@ -20,26 +20,34 @@
             android:id="@+id/etMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task" />
+            android:hint="Enter A Message" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/etTime"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="time" />
+        android:hint="Date"
+        android:id="@+id/btnDate"/>
 
-    <EditText
+    <TextView
         android:id="@+id/etDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Date"
-        android:inputType="date" />
+        android:text="date" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Time"
+        android:id="@+id/pickTimebtn"/>
+
+
+    <TextView
+        android:id="@+id/etTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Time" />
 
     <Button
         android:id="@+id/btnSaveAndSend"
