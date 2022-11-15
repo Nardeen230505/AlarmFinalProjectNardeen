@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -31,11 +32,11 @@ public class AddTaskActivity1 extends AppCompatActivity {
         //تعريف الحقول
 
         etPhone=findViewById(R.id.etPhone);
-        etTask=findViewById(R.id.etTask);
+        etTask=findViewById(R.id.etMessage);
         etTime=findViewById(R.id.etTime);
         etDate=findViewById(R.id.etDate);
         btnSaveAndSend=findViewById(R.id.btnSaveAndSend);
-        etMessage=findViewById(R.id.et_message);
+        etMessage=findViewById(R.id.etMessage);
 
         btnSaveAndSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,8 @@ public class AddTaskActivity1 extends AppCompatActivity {
             smsManager.sendTextMessage(sPhone,null,sMessage,null,null);
             //display toast
             Toast.makeText(getApplicationContext(),"SMS sent successfuly!",Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(AddTaskActivity1.this, MainActivity2.class);
+            startActivity(intent);
         }
 
         else {
