@@ -48,7 +48,10 @@ public class AddTaskActivity1 extends AppCompatActivity {
         etMessage=findViewById(R.id.etMessage);
         mTimeTextView = (TextView) findViewById(R.id.etDate);
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(); // بناء كائن من نوع تقويم - calendar
+        // The Calendar class is an abstract class that provides methods for converting between a specific instant in time
+        // and a set of calendar fields such as YEAR, MONTH, DAY_OF_MONTH, HOUR, and so on, and for manipulating the calendar fields,
+        // such as getting the date of the next week. An instant in time can be represented by a millisecond value
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int minute = calendar.get(Calendar.MINUTE);
 
@@ -57,35 +60,47 @@ public class AddTaskActivity1 extends AppCompatActivity {
         mPickTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(mcontext, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(mcontext, new TimePickerDialog.OnTimeSetListener()
+                                                                                   // معالج حدث الوقت
+                { // ديالوج للوقت الي بختار عليه الوقت
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
                         mTimeTextView.setText(hourOfDay + ":" + minute);
                     }
-                },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext));
-                timePickerDialog.show();
+                },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
+                                                               // فورمات السيعة ب24 سيعة
+                timePickerDialog.show(); // ظهور ديالوج الوقت
             }
         });
 
-        btnSaveAndSend.setOnClickListener(new View.OnClickListener() {
+        btnSaveAndSend.setOnClickListener(new View.OnClickListener() { // دالو معالج الحدث بعر الضغط على الزر
             @Override
             public void onClick(View view)
             {
-
                 //check condition
-                if (ContextCompat.checkSelfPermission(AddTaskActivity1.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED)
-                {
-                    // when permssion is granted
-                    // creat method
+                                 //تحقق من الإذن الذاتي
+                if (ContextCompat.checkSelfPermission(AddTaskActivity1.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED) // permission granted - يمنح الاذن من المسؤول عن الصفحة
+                                                                                     // قائمة ال xml
 
-                    sendMessage();
+                    //Context Compact - Helper for accessing features in Context.
+                   //עוזר לגישה לתכונות בהקשר. - مساعد للوصول إلى الميزات في السياق - Context Compact
+                    // checkSelfPermission - Determine whether you have been granted a particular permission. - حدد ما إذا كنت قد حصلت على إذن معين.
+                {
+                    // when permssion is granted - عندما يتم منح الاذن
+                    // creat method - يعمل دالة
+
+                    sendMessage(); //يرسل رسالة
                 }
 
                 else
                 {
-                    // when permission is not granted
-                    //request permission
+                    // when permission is not granted - عندما لا يُسمح الاذن
+                    //request permission - يطلب الاذن
+                                   // يطلب الاذن
                     ActivityCompat.requestPermissions(AddTaskActivity1.this, new String[]{Manifest.permission.SEND_SMS}, 100);
+                    //Helper for accessing features in android.app.Activity. - مساعد للوصول إلى الميزات في نشاط android.app.Activity.
+                    // String[]{Manifest.permission.SEND_SMS - كصفوفة كل اسماء الأذون
+
                 }
 
             }
@@ -101,7 +116,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
 
     }
 
-    private void showDatePickerDialog()
+    private void showDatePickerDialog() // ظهور ديالوج التاريخ
     {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
@@ -115,7 +130,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         );
-        datePickerDialog.show();
+        datePickerDialog.show(); // ظهور ديالوج التاريخ
 
     }
 
@@ -129,6 +144,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
             //when both edit text value not equal to blank
             //initialize sms message
             SmsManager smsManager=SmsManager.getDefault();
+                                            // Gets the current value of the default locale for the specified Category
             //send text message
             smsManager.sendTextMessage(sPhone,null,sMessage,null,null);
             //display toast
@@ -141,17 +157,18 @@ public class AddTaskActivity1 extends AppCompatActivity {
             // when edit text value is blank
             // display toast
             Toast.makeText(getApplicationContext(),"Enter value first.", Toast.LENGTH_SHORT).show();
-
+                          //محل this
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+            // دالة onRequestPermissionResult هي الدالة الي بتعرض جواب الpermission وببتلقي مصفوفة الأذون ومصفوفة نتيجة كل اذن
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         //check condition
-        if (requestCode==100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        if (requestCode==100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) // تتم عملية فحص كل اذن واتمام المهمة حسب النتيجة
         {
             // when permission is granted
             // call method
@@ -162,9 +179,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
             // when permission is denied
             // display toast
             Toast.makeText(getApplicationContext(), "Permission Denied!", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
     /*@Override
