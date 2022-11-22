@@ -40,7 +40,6 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         TextView tvMessage = vItem.findViewById(R.id.tvMessage);
         TextView tvDate = vItem.findViewById(R.id.tvDate);
         TextView tvTime = vItem.findViewById(R.id.tvTime);
-        ImageButton btnSend = vItem.findViewById(R.id.btnSend);
 
         // باخد القيم تبعت المهمة وبحطهن بالحقول
         final AlarmClock alarmClock = getItem(position); //عملت كائن وبدي استخرج القيم الي الو عن طريق الposition الي الو
