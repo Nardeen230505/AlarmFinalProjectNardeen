@@ -21,9 +21,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+
+import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmClock;
 
 public class AddTaskActivity1 extends AppCompatActivity {
 
@@ -34,6 +40,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
     private TextView mTimeTextView;
     private EditText mPickTimeButton;
     Context mcontext = this;
+    private AlarmClock alarmClock=new AlarmClock();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
         btnSaveAndSend=findViewById(R.id.btnSaveAndSend);
         etMessage=findViewById(R.id.etMessage);
         mTimeTextView = (TextView) findViewById(R.id.etDate);
+
 
         Calendar calendar = Calendar.getInstance(); // بناء كائن من نوع تقويم - calendar
         // The Calendar class is an abstract class that provides methods for converting between a specific instant in time
@@ -66,6 +74,8 @@ public class AddTaskActivity1 extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
                         mTimeTextView.setText(hourOfDay + ":" + minute);
+                        alarmClock.setHour(hour);
+                        alarmClock.setMinute(minute);
                     }
                 },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
                                                                // فورمات السيعة ب24 سيعة
@@ -114,6 +124,50 @@ public class AddTaskActivity1 extends AppCompatActivity {
             }
         });
 
+        btnSaveAndSend.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                checkAndSave();
+            }
+        });
+
+    }
+    private void checkAndSave()
+    {
+        String phone=etPhone.getText().toString();
+        String message=etMessage.getText().toString();
+        alarmClock.setPhNo(phone);
+        alarmClock.setMessage(message);
+
+        // استخراج رقم مميز للمستعمل
+        String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        alarmClock.setOwner(owner);
+
+        // انتتاج الرقم المميز للساعة
+        String key = FirebaseDatabase.getInstance().getReference().
+                child("Alarm Clock").child(owner).push().getKey();
+        alarmClock.setKey(key);
+
+        //حفظ بالخادم
+        FirebaseDatabase.getInstance().getReference()
+                .child("Alarm Clock").child(owner).child(key).setValue(alarmClock)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                        {
+                            finish();
+                                Toast.makeText(AddTaskActivity1.this,"added successfully", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(AddTaskActivity1.this,"added failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
     }
 
     private void showDatePickerDialog() // ظهور ديالوج التاريخ
@@ -123,6 +177,9 @@ public class AddTaskActivity1 extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker datePicker, int day, int month, int year) {
                         Date.setText(day + "/" + month + "/" + year);
+                        alarmClock.setDay(day);
+                        alarmClock.setMonth(month);
+                        alarmClock.setYear(year);
 
                     }
                 },

@@ -7,12 +7,40 @@ public class AlarmClock
 {
     //تعريف الصفات الخاص بالكائن
     private int hour;
+    private int year;
+
     private int minute;
     private int seconds;
-    private int phNo;
+    private String phNo;
     private int month;
     private String task;
-    private String day;
+    private int day;
+    private String message;
+    private String owner; //رقم مميز للمستعمل
+    private String key; // رقم مميز للساعة يتم انتاجه من قِبل الخادم - firebase
+
+    public String getKey()
+    {return this.key;}
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+
+    public String getOwner()
+    {return this.owner;}
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+
+    public String getMessage()
+    {return this.message;}
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 
     public AlarmClock() { //دالة بريرات محرال بتعطي قيم بدائية للصفات عند استدعائها
@@ -43,11 +71,11 @@ public class AlarmClock
     }
 
 
-    public int getPhNo() {
+    public String getPhNo() {
         return phNo;
     }
 
-    public void setPhNo(int phNo) {
+    public void setPhNo(String phNo) {
         this.phNo = phNo;
     }
 
@@ -67,12 +95,20 @@ public class AlarmClock
         this.task = task;
     }
 
-    public String getDay() {
+    public int getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(int day) {
         this.day = day;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override //دالة toString
