@@ -36,6 +36,9 @@ public class MainActivity2 extends AppCompatActivity {
     private ImageButton imgbtnAdd;
     AlarmAdapter alarmAdapter; // بناء الوسيط AlarmAdapter
 
+   // Adapter - يعمل كائن الادابتر بين
+    //AdapterView
+    // وبين البيانات الاساسية للعرض. يوفر الادابتر الوصول لعناصر البيانات. الادابتر مسؤول ايضا عن عمل view لكل item بال data set
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
         // تابع لخطوة 3 - بناء الوسيط (الادابتر)
         alarmAdapter=new AlarmAdapter(getApplicationContext());
+                                     // הפנייה للابليكيشن المفتوح - الهدف منها هو لما يطلع الديالوج يعرف اذا هو تابع للابليكيشن
         // تجهيز مؤشر لقائمة العرض
         lstview=findViewById(R.id.list1);
         // تابع لخطوة 3 - ربط قائمة العرض بالوسيط
@@ -79,14 +83,14 @@ public class MainActivity2 extends AppCompatActivity {
              * @param snapshot يحوي نسخة عن كل المعطيات تحت العنوان المُراقب - العنوان المراقب يعني العنوان الي حاطة عليه ليسينير-
              */
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
+            public void onDataChange(@NonNull DataSnapshot snapshot) //اذا غيرت اشي بتغير بالفاير بيس
             //What I mean is to save the project as is at the moment and
             // be able to make heavy changes without fearing to destroy
             // what is already working well and also to be able to restart
             // from this "snapshot" if it happens that the changes made break the project.
             { // هادا معالج حدث للداتا تشينج يعني معالج حدث بالفاير بيس
 
-                // remove all tasks from adapter
+                // remove all alarms from adapter
                 alarmAdapter.clear();
 
                 // استخراج المعطيات ونحطهن بالادابتير

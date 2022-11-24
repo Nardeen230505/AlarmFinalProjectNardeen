@@ -31,6 +31,10 @@ import java.util.Calendar;
 
 import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmClock;
 
+/**
+ * شاشة لاضافة مهمة
+ *
+ */
 public class AddTaskActivity1 extends AppCompatActivity {
 
     private EditText etPhone,etMessage;
@@ -154,6 +158,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference()
                 .child("Alarm Clock").child(owner).child(key).setValue(alarmClock)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    // بفحص اذا الاشي الي نحفظ تكبن ولا لا
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful())
