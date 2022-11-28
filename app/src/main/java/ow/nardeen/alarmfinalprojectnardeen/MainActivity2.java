@@ -3,9 +3,13 @@ package ow.nardeen.alarmfinalprojectnardeen;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -176,6 +181,48 @@ public class MainActivity2 extends AppCompatActivity {
 
         }
         return true;
+    }
+
+    public void btnSendBroadcast(View view)
+    {
+        Intent intent = new Intent();
+        intent.setAction("com.example.Broadcast");
+        intent.putExtra("msg", "hello from activity");
+        sendBroadcast(intent);
+    }
+    //access to permsions
+    void CheckUserPermsions(){
+        if ( Build.VERSION.SDK_INT >= 23){
+            if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) !=
+                    PackageManager.PERMISSION_GRANTED  )&& (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) !=
+                    PackageManager.PERMISSION_GRANTED  ))
+            {
+                requestPermissions(new String[]{
+                                android.Manifest.permission.RECEIVE_SMS},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+                return ;
+            }
+        }
+
+    }
+    //get acces to location permsion
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                } else {
+                    // Permission Denied
+                    Toast.makeText( this,"Denailed" , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
 
