@@ -33,15 +33,7 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".AlarmClockActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterringActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AlarmClock"
-            android:exported="false" />
+
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
@@ -58,7 +50,8 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".myReceiver">
+        <receiver android:name=".myReceiver" android:priority="214783647"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="com.example.Broadcast"/>
