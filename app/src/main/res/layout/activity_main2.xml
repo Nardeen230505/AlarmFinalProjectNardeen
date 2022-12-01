@@ -24,11 +24,11 @@
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <Button
-        android:onClick="btnSendBroadcast"
         android:id="@+id/btnsend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="send brodcast" />
+        android:onClick="btnSendBroadcast"
+        android:text="send broadcast" />
 
 
 </LinearLayout>

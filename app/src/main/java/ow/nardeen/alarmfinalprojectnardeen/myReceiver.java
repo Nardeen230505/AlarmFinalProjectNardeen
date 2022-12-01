@@ -3,8 +3,12 @@ package ow.nardeen.alarmfinalprojectnardeen;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.audiofx.BassBoost;
+import android.media.audiofx.Equalizer;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
@@ -44,5 +48,9 @@ public class myReceiver extends BroadcastReceiver {
 
             }
         }
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+        mediaPlayer.start();
+
     }
 }

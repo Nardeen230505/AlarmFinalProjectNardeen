@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -68,6 +69,16 @@ public class AddTaskActivity1 extends AppCompatActivity {
         final int minute = calendar.get(Calendar.MINUTE);
 
         mPickTimeButton = findViewById(R.id.pickTimebtn);
+
+      /*  findViewById(R.id.btnEdit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar1=Calendar.getInstance();
+                Calendar.set(
+                        Calendar.get(Calendar.YEAR), Calendar.get(Calendar.MONTH), Calendar.get(Calendar.DAY_OF_MONTH),
+                        mPickTimeButton.getHour(),mPickTimeButton.getMinute(),0 );
+            }
+        });*/
 
         mPickTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +147,8 @@ public class AddTaskActivity1 extends AppCompatActivity {
                 checkAndSave();
             }
         });
+
+
 
     }
     private void checkAndSave()
