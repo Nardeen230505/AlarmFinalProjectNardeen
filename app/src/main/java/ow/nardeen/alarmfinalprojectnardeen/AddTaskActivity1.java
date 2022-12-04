@@ -47,6 +47,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
     Context mcontext = this;
     private AlarmClock alarmClock=new AlarmClock();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

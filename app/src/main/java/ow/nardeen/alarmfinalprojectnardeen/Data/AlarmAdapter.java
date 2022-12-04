@@ -1,6 +1,7 @@
 package ow.nardeen.alarmfinalprojectnardeen.Data;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +44,21 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         TextView tvMessage = vItem.findViewById(R.id.tvMessage);
         TextView tvDate = vItem.findViewById(R.id.tvDate);
         TextView tvTime = vItem.findViewById(R.id.tvTime);
+        ImageButton btnEdit = vItem.findViewById(R.id.btnEdit);
+        ImageButton btnDelete = vItem.findViewById(R.id.btnDelete);
 
         // باخد القيم تبعت المهمة وبحطهن بالحقول
         final AlarmClock alarmClock = getItem(position); //عملت كائن وبدي استخرج القيم الي الو عن طريق الposition الي الو
         // بناء الكائن بهدف استخراج القيم من الحقول
         tvPhone.setText(alarmClock.getPhNo());
         tvMessage.setText(alarmClock.getMessage());
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AlarmAdapter.this,)
+
+            }
+        });
 
 
         //get - بتستخرج القيمة من الحقل
@@ -59,6 +69,8 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         // checkbox عشان نفحص اذا المهمة تمت
 
     }
+
+
 
 
 
