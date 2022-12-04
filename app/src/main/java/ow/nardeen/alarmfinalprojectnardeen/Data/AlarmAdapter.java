@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import org.w3c.dom.Text;
 
+import ow.nardeen.alarmfinalprojectnardeen.AddTaskActivity1;
 import ow.nardeen.alarmfinalprojectnardeen.R;
 
 /**
@@ -55,8 +56,9 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AlarmAdapter.this,)
-
+                Intent intent = new Intent(getContext(), AddTaskActivity1.class);
+                intent.putExtra("toEdit", alarmClock);
+                getContext().startActivity(intent);
             }
         });
 

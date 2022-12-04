@@ -46,7 +46,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
     private EditText mPickTimeButton;
     Context mcontext = this;
     private AlarmClock alarmClock=new AlarmClock();
-
+     boolean toEdit=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,12 @@ public class AddTaskActivity1 extends AppCompatActivity {
         etMessage=findViewById(R.id.etMessage);
         mTimeTextView = (TextView) findViewById(R.id.etDate);
 
+        if (getIntent()!=null && getIntent().hasExtra("toEdit"))
+        {
+            toEdit=true;
+            alarmClock= (AlarmClock) getIntent().getExtras().get("toEdit");
+            btnSaveAndSend.setText("update");
+        }
 
         Calendar calendar = Calendar.getInstance(); // بناء كائن من نوع تقويم - calendar
         // The Calendar class is an abstract class that provides methods for converting between a specific instant in time

@@ -1,12 +1,13 @@
 package ow.nardeen.alarmfinalprojectnardeen.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * هاي شاشة فيها كل صفات الالارم
  */
 //  نهذا الكلاس هو عبارة عن كائن الي هو ساعة وكمان بكتب بالكلاس كل صفات هاد الكائن
-public class AlarmClock
+public class AlarmClock implements Serializable
 {
     //تعريف الصفات الخاص بالكائن
     private int hour;
