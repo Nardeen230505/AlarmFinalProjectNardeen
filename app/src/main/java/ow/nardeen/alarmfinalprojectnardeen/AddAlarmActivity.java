@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -36,7 +35,7 @@ import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmClock;
  * شاشة لاضافة مهمة
  *
  */
-public class AddTaskActivity1 extends AppCompatActivity {
+public class AddAlarmActivity extends AppCompatActivity {
 
     private EditText etPhone,etMessage;
     private TextInputEditText etTask;
@@ -66,6 +65,10 @@ public class AddTaskActivity1 extends AppCompatActivity {
             toEdit=true;
             alarmClock= (AlarmClock) getIntent().getExtras().get("toEdit");
             btnSaveAndSend.setText("update");
+            etPhone.setText(alarmClock.getPhNo());
+            etTask.setText(alarmClock.getTask());
+            etMessage.setText(alarmClock.getMessage());
+
         }
 
         Calendar calendar = Calendar.getInstance(); // بناء كائن من نوع تقويم - calendar
@@ -111,7 +114,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
             {
                 //check condition
                                  //تحقق من الإذن الذاتي
-                if (ContextCompat.checkSelfPermission(AddTaskActivity1.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED) // permission granted - يمنح الاذن من المسؤول عن الصفحة
+                if (ContextCompat.checkSelfPermission(AddAlarmActivity.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED) // permission granted - يمنح الاذن من المسؤول عن الصفحة
                                                                                      // قائمة ال xml
 
                     //Context Compact - Helper for accessing features in Context.
@@ -129,7 +132,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
                     // when permission is not granted - عندما لا يُسمح الاذن
                     //request permission - يطلب الاذن
                                    // يطلب الاذن
-                    ActivityCompat.requestPermissions(AddTaskActivity1.this, new String[]{Manifest.permission.SEND_SMS}, 100);
+                    ActivityCompat.requestPermissions(AddAlarmActivity.this, new String[]{Manifest.permission.SEND_SMS}, 100);
                     //Helper for accessing features in android.app.Activity. - مساعد للوصول إلى الميزات في نشاط android.app.Activity.
                     // String[]{Manifest.permission.SEND_SMS - كصفوفة كل اسماء الأذون
 
@@ -158,13 +161,13 @@ public class AddTaskActivity1 extends AppCompatActivity {
 
 
     }
-    private void checkAndSave()
-    {
-        String phone=etPhone.getText().toString();
-        String message=etMessage.getText().toString();
+    private void checkAndSave() {
+        String phone = etPhone.getText().toString();
+        String message = etMessage.getText().toString();
         alarmClock.setPhNo(phone);
         alarmClock.setMessage(message);
-
+        if (toEdit == false)
+        {
         // استخراج رقم مميز للمستعمل
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
         alarmClock.setOwner(owner);
@@ -173,6 +176,12 @@ public class AddTaskActivity1 extends AppCompatActivity {
         String key = FirebaseDatabase.getInstance().getReference().
                 child("Alarm Clock").child(owner).push().getKey();
         alarmClock.setKey(key);
+    }
+
+      else
+      {
+
+      }
 
         //حفظ بالخادم
         FirebaseDatabase.getInstance().getReference()
@@ -184,11 +193,11 @@ public class AddTaskActivity1 extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             finish();
-                                Toast.makeText(AddTaskActivity1.this,"added successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddAlarmActivity.this,"added successfully", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-                            Toast.makeText(AddTaskActivity1.this,"added failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddAlarmActivity.this,"added failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -231,7 +240,7 @@ public class AddTaskActivity1 extends AppCompatActivity {
             smsManager.sendTextMessage(sPhone,null,sMessage,null,null);
             //display toast
             Toast.makeText(getApplicationContext(),"SMS sent successfuly!",Toast.LENGTH_LONG).show();
-            Intent intent=new Intent(AddTaskActivity1.this, MainActivity2.class);
+            Intent intent=new Intent(AddAlarmActivity.this, MainActivity2.class);
             startActivity(intent);
         }
 

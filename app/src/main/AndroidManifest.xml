@@ -25,7 +25,7 @@
             android:name=".SettingsActivityF"
             android:exported="false" />
         <activity
-            android:name=".AddTaskActivity1"
+            android:name=".AddAlarmActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"

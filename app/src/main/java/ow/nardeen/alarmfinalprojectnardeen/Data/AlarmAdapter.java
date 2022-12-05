@@ -12,9 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.w3c.dom.Text;
-
-import ow.nardeen.alarmfinalprojectnardeen.AddTaskActivity1;
+import ow.nardeen.alarmfinalprojectnardeen.AddAlarmActivity;
 import ow.nardeen.alarmfinalprojectnardeen.R;
 
 /**
@@ -56,9 +54,20 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), AddTaskActivity1.class);
-                intent.putExtra("toEdit", alarmClock);
-                getContext().startActivity(intent);
+                                           // لانو هاي مش اكتيفيتي منستعمل كونتيكست
+                Intent intent = new Intent(getContext(), AddAlarmActivity.class);
+                intent.putExtra("toEdit", alarmClock); // هون ببعت مع الانتنت نفس الكائن مع نفس الصفات والمعطيات
+                getContext().startActivity(intent); //  تشغيل الانتنت عشان ينقل من شاشة لشاشة
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+
+                Intent intent1 = new Intent(getContext(), AddAlarmActivity.class);
+                getContext().startActivity(intent1);
             }
         });
 

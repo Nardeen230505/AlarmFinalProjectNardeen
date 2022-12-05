@@ -57,7 +57,7 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Register a callback to be invoked when this view is clicked. If this view is not clickable, it becomes clickable.
-                Intent in=new Intent(MainActivity2.this, AddTaskActivity1.class);
+                Intent in=new Intent(MainActivity2.this, AddAlarmActivity.class);
                 startActivity(in);
             }
         });
@@ -140,7 +140,7 @@ public class MainActivity2 extends AppCompatActivity {
         // الانتنت هو الي بساعدني انقل من شاشة لشاشة
         if (item.getItemId()==R.id.itmAddAlarm)
         {
-            Intent iA=new Intent(MainActivity2.this,AddTaskActivity1.class);
+            Intent iA=new Intent(MainActivity2.this, AddAlarmActivity.class);
             startActivity(iA);
         }
 
