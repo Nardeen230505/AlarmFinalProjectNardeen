@@ -176,7 +176,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         String key = FirebaseDatabase.getInstance().getReference().
                 child("Alarm Clock").child(owner).push().getKey();
         alarmClock.setKey(key);
-    }
+        }
 
       else
       {
@@ -185,7 +185,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         //حفظ بالخادم
         FirebaseDatabase.getInstance().getReference()
-                .child("Alarm Clock").child(owner).child(key).setValue(alarmClock)
+                .child("Alarm Clock").child(alarmClock.getOwner()).child(alarmClock.getKey()).setValue(alarmClock)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     // بفحص اذا الاشي الي نحفظ تكبن ولا لا
                     @Override

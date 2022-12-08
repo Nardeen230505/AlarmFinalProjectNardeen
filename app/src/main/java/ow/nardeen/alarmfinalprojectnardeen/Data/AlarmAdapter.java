@@ -6,11 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 
 import ow.nardeen.alarmfinalprojectnardeen.AddAlarmActivity;
 import ow.nardeen.alarmfinalprojectnardeen.R;
@@ -43,8 +49,8 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         TextView tvMessage = vItem.findViewById(R.id.tvMessage);
         TextView tvDate = vItem.findViewById(R.id.tvDate);
         TextView tvTime = vItem.findViewById(R.id.tvTime);
-        ImageButton btnEdit = vItem.findViewById(R.id.btnEdit);
-        ImageButton btnDelete = vItem.findViewById(R.id.btnDelete);
+        Button btnEdit = vItem.findViewById(R.id.btnEdit);
+        Button btnDelete = vItem.findViewById(R.id.btnDelete);
 
         // باخد القيم تبعت المهمة وبحطهن بالحقول
         final AlarmClock alarmClock = getItem(position); //عملت كائن وبدي استخرج القيم الي الو عن طريق الposition الي الو
@@ -65,9 +71,21 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
             @Override
             public void onClick(View view)
             {
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Alarm Clock").child(alarmClock.getOwner()).child(alarmClock.getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful())
+                                {
+                                    Toast.makeText(getContext(), "deleted successfully", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), "not deleted successfully", Toast.LENGTH_SHORT).show();
 
-                Intent intent1 = new Intent(getContext(), AddAlarmActivity.class);
-                getContext().startActivity(intent1);
+                                }
+                            }
+                        });
+
             }
         });
 

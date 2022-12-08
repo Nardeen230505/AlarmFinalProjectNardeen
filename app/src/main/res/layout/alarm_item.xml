@@ -34,21 +34,25 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <ImageButton
+        <Button
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            android:text="Edit"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+           />
 
-        <ImageButton
+        <Button
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            android:text="Delete"
+            android:drawableLeft="@android:drawable/ic_menu_delete"
+            />
     </LinearLayout>
 
 </LinearLayout>
