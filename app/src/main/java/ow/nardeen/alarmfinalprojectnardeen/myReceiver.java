@@ -51,6 +51,5 @@ public class myReceiver extends BroadcastReceiver {
         MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
         mediaPlayer.start();
 
-
     }
 }
