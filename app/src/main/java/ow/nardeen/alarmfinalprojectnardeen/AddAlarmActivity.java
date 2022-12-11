@@ -1,5 +1,4 @@
 package ow.nardeen.alarmfinalprojectnardeen;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -279,4 +278,5 @@ public class AddAlarmActivity extends AppCompatActivity {
         String date = "month/day/year: " + datePicker.getMonth() + "/" + datePicker.getDayOfMonth() + "/" + datePicker.getYear();
 
     }*/
+
 }
