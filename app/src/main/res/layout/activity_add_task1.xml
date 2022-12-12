@@ -49,6 +49,29 @@
         android:layout_height="wrap_content"
         android:text="Time" />
 
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/rdHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HIGH" />
+
+        <RadioButton
+            android:id="@+id/rdMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MEDIUM" />
+
+        <RadioButton
+            android:id="@+id/rdLow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOW" />
+    </RadioGroup>
+
     <Button
         android:id="@+id/btnSaveAndSend"
         android:layout_width="wrap_content"

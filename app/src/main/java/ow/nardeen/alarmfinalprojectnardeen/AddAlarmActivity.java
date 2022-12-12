@@ -45,6 +45,9 @@ public class AddAlarmActivity extends AppCompatActivity {
     Context mcontext = this;
     private AlarmClock alarmClock=new AlarmClock();
      boolean toEdit=false;
+     private Button rdHigh;
+    private Button rdMedium;
+    private Button rdLow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         btnSaveAndSend=findViewById(R.id.btnSaveAndSend);
         etMessage=findViewById(R.id.etMessage);
         mTimeTextView = (TextView) findViewById(R.id.etDate);
+
 
         if (getIntent()!=null && getIntent().hasExtra("toEdit"))
         {
@@ -111,6 +115,9 @@ public class AddAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+
+
+
                 //check condition
                                  //تحقق من الإذن الذاتي
                 if (ContextCompat.checkSelfPermission(AddAlarmActivity.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED) // permission granted - يمنح الاذن من المسؤول عن الصفحة
@@ -201,6 +208,14 @@ public class AddAlarmActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+
+    }
+
+    public boolean isClicked()
+    {
+        if(rd)
     }
 
     private void showDatePickerDialog() // ظهور ديالوج التاريخ

@@ -1,5 +1,7 @@
 package ow.nardeen.alarmfinalprojectnardeen.Data;
 
+import android.widget.RadioButton;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,7 +14,10 @@ public class AlarmClock implements Serializable
     //تعريف الصفات الخاص بالكائن
     private int hour;
     private int year;
-
+    private int priority;
+    private Boolean High;
+    private Boolean Medium;
+    private Boolean Low;
     private int minute;
     private int seconds;
     private String phNo;
@@ -22,6 +27,38 @@ public class AlarmClock implements Serializable
     private String message;
     private String owner; //رقم مميز للمستعمل
     private String key; // رقم مميز للساعة يتم انتاجه من قِبل الخادم - firebase
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public Boolean getHigh() {
+        return High;
+    }
+
+    public void setHigh(Boolean high) {
+        High = high;
+    }
+
+    public Boolean getMedium() {
+        return Medium;
+    }
+
+    public void setMedium(Boolean medium) {
+        Medium = medium;
+    }
+
+    public Boolean getLow() {
+        return Low;
+    }
+
+    public void setLow(Boolean low) {
+        Low = low;
+    }
 
     public String getKey()
     {return this.key;}
@@ -115,17 +152,24 @@ public class AlarmClock implements Serializable
         this.year = year;
     }
 
-    @Override //دالة toString
+    //دالة toString
 
+
+    @Override
     public String toString() {
         return "AlarmClock{" +
                 "hour=" + hour +
+                ", year=" + year +
+                ", priority=" + priority +
                 ", minute=" + minute +
                 ", seconds=" + seconds +
-                ", phNo=" + phNo +
+                ", phNo='" + phNo + '\'' +
                 ", month=" + month +
                 ", task='" + task + '\'' +
-                ", day='" + day + '\'' +
+                ", day=" + day +
+                ", message='" + message + '\'' +
+                ", owner='" + owner + '\'' +
+                ", key='" + key + '\'' +
                 '}';
     }
 }
