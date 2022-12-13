@@ -106,10 +106,8 @@ public class AddAlarmActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
                         mTimeTextView.setText(hourOfDay + ":" + minute);
-                        //alarmClock.setHour(hour);
-                        //alarmClock.setMinute(minute);
-                        alarmClock.getDate().setHours(hourOfDay);
-                        alarmClock.getDate().setMinutes(minute);
+                        alarmClock.setHour(hour);
+                        alarmClock.setMinute(minute);
                     }
                 },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
                                                                // فورمات السيعة ب24 سيعة
@@ -135,8 +133,8 @@ public class AddAlarmActivity extends AppCompatActivity {
                 {
                     // when permssion is granted - عندما يتم منح الاذن
                     // creat method - يعمل دالة
+                    checkAndSave();
 
-                    sendMessage(); //يرسل رسالة
                 }
 
                 else
@@ -161,14 +159,14 @@ public class AddAlarmActivity extends AppCompatActivity {
             }
         });
 
-        btnSaveAndSend.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                checkAndSave();
-            }
-        });
+//        btnSaveAndSend.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//
+//            }
+//        });
 
 
 
@@ -208,6 +206,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             finish();
+                            sendMessage(); //يرسل رسالة
                                 Toast.makeText(AddAlarmActivity.this,"added successfully", Toast.LENGTH_SHORT).show();
                         }
                         else

@@ -27,7 +27,7 @@ public class AlarmClock implements Serializable
     private String message;
     private String owner; //رقم مميز للمستعمل
     private String key; // رقم مميز للساعة يتم انتاجه من قِبل الخادم - firebase
-    private Date date;
+    private Date date=new Date();
 
     public Date getDate() {
         return date;
