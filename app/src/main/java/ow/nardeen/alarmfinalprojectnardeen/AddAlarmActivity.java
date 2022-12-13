@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -45,9 +46,9 @@ public class AddAlarmActivity extends AppCompatActivity {
     Context mcontext = this;
     private AlarmClock alarmClock=new AlarmClock();
      boolean toEdit=false;
-     private Button rdHigh;
-    private Button rdMedium;
-    private Button rdLow;
+    private RadioButton rdHigh;
+    private RadioButton rdMedium;
+    private RadioButton rdLow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,9 @@ public class AddAlarmActivity extends AppCompatActivity {
         btnSaveAndSend=findViewById(R.id.btnSaveAndSend);
         etMessage=findViewById(R.id.etMessage);
         mTimeTextView = (TextView) findViewById(R.id.etDate);
+        rdHigh=findViewById(R.id.rdHigh);
+        rdMedium=findViewById(R.id.rdMedium);
+        rdLow=findViewById(R.id.rdLow);
 
 
         if (getIntent()!=null && getIntent().hasExtra("toEdit"))
@@ -102,8 +106,10 @@ public class AddAlarmActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
                         mTimeTextView.setText(hourOfDay + ":" + minute);
-                        alarmClock.setHour(hour);
-                        alarmClock.setMinute(minute);
+                        //alarmClock.setHour(hour);
+                        //alarmClock.setMinute(minute);
+                        alarmClock.getDate().setHours(hourOfDay);
+                        alarmClock.getDate().setMinutes(minute);
                     }
                 },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
                                                                // فورمات السيعة ب24 سيعة
@@ -170,8 +176,14 @@ public class AddAlarmActivity extends AppCompatActivity {
     private void checkAndSave() {
         String phone = etPhone.getText().toString();
         String message = etMessage.getText().toString();
+        Boolean rLow = rdLow.isChecked();
+        Boolean rMedium = rdMedium.isChecked();
+        Boolean rHigh = rdHigh.isChecked();
         alarmClock.setPhNo(phone);
         alarmClock.setMessage(message);
+        alarmClock.setLow(rLow);
+        alarmClock.setMedium(rMedium);
+        alarmClock.setHigh(rHigh);
         if (toEdit == false)
         {
         // استخراج رقم مميز للمستعمل
@@ -184,10 +196,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         alarmClock.setKey(key);
         }
 
-      else
-      {
 
-      }
 
         //حفظ بالخادم
         FirebaseDatabase.getInstance().getReference()
@@ -208,15 +217,8 @@ public class AddAlarmActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-
     }
 
-    public boolean isClicked()
-    {
-        if(rd)
-    }
 
     private void showDatePickerDialog() // ظهور ديالوج التاريخ
     {
