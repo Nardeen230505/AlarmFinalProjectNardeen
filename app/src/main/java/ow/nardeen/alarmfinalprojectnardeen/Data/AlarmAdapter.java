@@ -63,10 +63,10 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
             tvPriority.setText("3");
         }
         if (alarmClock.getMedium()){
-            tvPriority.setText('2');
+            tvPriority.setText("2");
         }
         if (alarmClock.getLow()){
-            tvPriority.setText('1');
+            tvPriority.setText("1");
         }
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
