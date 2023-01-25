@@ -40,7 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
     private ListView list1;    //قائمة عرض المهمات
     private ImageButton imgbtnAdd;
     AlarmAdapter alarmAdapter; // بناء الوسيط AlarmAdapter
-
+    private boolean isSender=true;
    // Adapter - يعمل كائن الادابتر بين
     //AdapterView
     // وبين البيانات الاساسية للعرض. يوفر الادابتر الوصول لعناصر البيانات. الادابتر مسؤول ايضا عن عمل view لكل item بال data set
@@ -52,7 +52,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         setContentView(R.layout.activity_main2);
         imgbtnAdd=findViewById(R.id.imgbtnAdd);
-
+        if (getIntent()!=null && getIntent().hasExtra("isSender"))
+        {
+            isSender=getIntent().getBooleanExtra("isSender",true);
+        }
         imgbtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +76,16 @@ public class MainActivity2 extends AppCompatActivity {
         // ويقوم بتنظيف المعطيات الموجة (حذفها) وتنزيل المعلومات الجديدة
         readAlarmFromFireBase();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent()!=null && getIntent().hasExtra("isSender"))
+        {
+            isSender=getIntent().getBooleanExtra("isSender",true);
+        }
+    }
+
     private void readAlarmFromFireBase()
     {
         //مؤشر لجذر قاعدة البيانات التابعة للمشروع

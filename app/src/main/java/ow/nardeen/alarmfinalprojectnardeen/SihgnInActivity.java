@@ -23,7 +23,7 @@ public class SihgnInActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private Button btnSignIn;
-    private Button btnSignUp;
+    private Button btnSignUp, btnSignInRec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//When an Activity first call or launched then onCreate(Bundle savedInstanceState) method is responsible to create the activity.
@@ -37,6 +37,7 @@ public class SihgnInActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etRePassword);
         btnSignIn=findViewById(R.id.btnSignIn);
         btnSignUp=findViewById(R.id.btnSignUp);
+        btnSignInRec = findViewById(R.id.btnSignInRec);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() { //تعريف حدث الكبسة على الزر ساين ان
             @Override
@@ -45,16 +46,23 @@ public class SihgnInActivity extends AppCompatActivity {
                 startActivity(iF); //عملة التفعيل الي بتخلي يصير في انتقال من بين الشاشات
             }
         });
+        btnSignInRec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkAndSave(false);
+
+            }
+        });
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {  // استدعاء الدالة checkAndSave
                 //Register a callback to be invoked when this view is clicked. If this view is not clickable, it becomes clickable.
-                checkAndSave();
+                checkAndSave(true);
             } // استدعاء الدالة checkAndSave وتطبيق كل ما فيها
         });
     }
 
-    private void checkAndSave() //عملية تفحص اذا كل اشي تمام
+    private void checkAndSave(boolean isSender) //عملية تفحص اذا كل اشي تمام
     {
         String email=etEmail.getText().toString();
         String password=etPassword.getText().toString();
@@ -85,6 +93,7 @@ public class SihgnInActivity extends AppCompatActivity {
                     if (task.isSuccessful()){
                         Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show(); // التوست هاي الي بتطلعلنا زي هودعا لفترة صغيرة من الوقت وبتطلعلنا شو كتبنا ببن جرشايم
                         Intent i=new Intent(SihgnInActivity.this,MainActivity2.class);
+                        i.putExtra("isSender", isSender);
                         startActivity(i);
                         finish();
                     }

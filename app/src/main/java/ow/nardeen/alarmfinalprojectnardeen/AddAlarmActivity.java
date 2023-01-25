@@ -190,7 +190,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         // انتتاج الرقم المميز للساعة
         String key = FirebaseDatabase.getInstance().getReference().
-                child("Alarm Clock").child(owner).push().getKey();
+                child("AlarmClockSent").child(owner).push().getKey();
         alarmClock.setKey(key);
         }
 
