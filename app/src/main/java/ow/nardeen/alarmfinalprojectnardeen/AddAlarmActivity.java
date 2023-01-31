@@ -5,7 +5,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,10 +48,17 @@ public class AddAlarmActivity extends AppCompatActivity {
     private EditText mPickTimeButton;
     Context mcontext = this;
     private AlarmClock alarmClock=new AlarmClock();
-     boolean toEdit=false;
+    boolean toEdit=false;
     private RadioButton rdHigh;
     private RadioButton rdMedium;
     private RadioButton rdLow;
+  /*  private EditText etHour, etMinute;
+    int minute, hour, day;*/
+    TimePicker alarmTimePicker;
+    PendingIntent pendingIntent;
+    AlarmManager alarmManager;
+    private Button btnSetAlarm;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +75,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         rdHigh=findViewById(R.id.rdHigh);
         rdMedium=findViewById(R.id.rdMedium);
         rdLow=findViewById(R.id.rdLow);
+        btnSetAlarm = findViewById(R.id.btnSetAlarm);
 
 
         if (getIntent()!=null && getIntent().hasExtra("toEdit"))
@@ -120,11 +131,10 @@ public class AddAlarmActivity extends AppCompatActivity {
             public void onClick(View view)
             {
 
-
-
                 //check condition
                                  //تحقق من الإذن الذاتي
-                if (ContextCompat.checkSelfPermission(AddAlarmActivity.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED) // permission granted - يمنح الاذن من المسؤول عن الصفحة
+                if (ContextCompat.checkSelfPermission(AddAlarmActivity.this , Manifest.permission.SEND_SMS)== PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(AddAlarmActivity.this , Manifest.permission.VIBRATE)== PackageManager.PERMISSION_GRANTED) // permission granted - يمنح الاذن من المسؤول عن الصفحة
                                                                                      // قائمة ال xml
 
                     //Context Compact - Helper for accessing features in Context.
@@ -142,7 +152,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                     // when permission is not granted - عندما لا يُسمح الاذن
                     //request permission - يطلب الاذن
                                    // يطلب الاذن
-                    ActivityCompat.requestPermissions(AddAlarmActivity.this, new String[]{Manifest.permission.SEND_SMS}, 100);
+                    ActivityCompat.requestPermissions(AddAlarmActivity.this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.VIBRATE}, 100);
                     //Helper for accessing features in android.app.Activity. - مساعد للوصول إلى الميزات في نشاط android.app.Activity.
                     // String[]{Manifest.permission.SEND_SMS - كصفوفة كل اسماء الأذون
 
@@ -155,22 +165,64 @@ public class AddAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                showDatePickerDialog();
+                showDatePickerDialog();}
+        });
+
+      //  alarmTimePicker = (TimePicker) findViewById(R.id.timePicker);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        btnSetAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scheduleTime();
             }
         });
 
-//        btnSaveAndSend.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view)
-//            {
-//
+    }
+
+    // onToggleClicked() method is implemented the time functionality
+    public void scheduleTime(){
+        long time;
+
+            Toast.makeText(AddAlarmActivity.this, "ALARM ON", Toast.LENGTH_SHORT).show();
+            Calendar calendar1 = Calendar.getInstance();
+
+            // calendar is called to get currnet time in hour and minute
+            calendar1.set(Calendar.HOUR_OF_DAY,alarmClock.getHour());
+            calendar1.set(Calendar.MINUTE, alarmClock.getMinute());
+            calendar1.set(Calendar.DAY_OF_MONTH, alarmClock.getDay());
+            calendar1.set(Calendar.MONTH, alarmClock.getMonth());
+            calendar1.set(Calendar.YEAR, alarmClock.getYear());
+
+            // using intent i have class AlarmReceiver class which inherits
+            // BroadCastReceiver
+            Intent intent = new Intent(this, AlarmReceiver.class);
+
+            // we call broadcast using pendingIntent
+            pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+            time = (calendar1.getTimeInMillis() - (calendar1.getTimeInMillis() % 60000));
+            if (System.currentTimeMillis() > time) {
+                // setting time as  AM  and PM
+                if (Calendar.AM_PM == 0)
+                    time = time + (1000 * 60 * 60 * 12);
+                else
+                    time = time + (1000 * 60 * 60 * 24);
+
+
+            // Alarm rings continuously until toggle button is turned off
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +(time*1000), pendingIntent);
+        }
+//            else{
+//                alarmManager.cancel(pendingIntent);
+//                Toast.makeText(AddAlarmActivity.this, "ALARM OFF", Toast.LENGTH_SHORT).show();
 //            }
-//        });
-
-
 
     }
+
+
+
     private void checkAndSave() {
         String phone = etPhone.getText().toString();
         String message = etMessage.getText().toString();
@@ -190,7 +242,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         // انتتاج الرقم المميز للساعة
         String key = FirebaseDatabase.getInstance().getReference().
-                child("AlarmClockSent").child(owner).push().getKey();
+                child("AlarmClockSent ").child(owner).push().getKey();
         alarmClock.setKey(key);
         }
 
@@ -208,6 +260,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                             finish();
                             sendMessage(); //يرسل رسالة
                                 Toast.makeText(AddAlarmActivity.this,"added successfully", Toast.LENGTH_SHORT).show();
+                                scheduleTime();//for example
                         }
                         else
                         {

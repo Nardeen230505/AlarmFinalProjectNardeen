@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -25,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
 
 import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmAdapter;
 import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmClock;
@@ -44,6 +49,7 @@ public class MainActivity2 extends AppCompatActivity {
    // Adapter - يعمل كائن الادابتر بين
     //AdapterView
     // وبين البيانات الاساسية للعرض. يوفر الادابتر الوصول لعناصر البيانات. الادابتر مسؤول ايضا عن عمل view لكل item بال data set
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +81,8 @@ public class MainActivity2 extends AppCompatActivity {
         //تشغيل "مراقب" على قاعدة البيانات
         // ويقوم بتنظيف المعطيات الموجة (حذفها) وتنزيل المعلومات الجديدة
         readAlarmFromFireBase();
+
+
     }
 
     @Override
