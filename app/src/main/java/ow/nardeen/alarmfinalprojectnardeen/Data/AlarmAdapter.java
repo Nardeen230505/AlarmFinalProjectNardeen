@@ -41,7 +41,7 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) // כאן בונים ממשק שמציג משימת "Item"
     {
         //بناء  واجهةالي بتعرض المهمة - item
         View vItem = LayoutInflater.from(getContext()).inflate(R.layout.alarm_item, parent, false);
@@ -68,7 +68,7 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         if (alarmClock.getLow()){
             tvPriority.setText("1");
         }
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btnEdit.setOnClickListener(new View.OnClickListener() { //פעולה מתארמ מה קורה כשלוחצים על כפתור ה"edit"
             @Override
             public void onClick(View view) {
                                            // لانو هاي مش اكتيفيتي منستعمل كونتيكست
@@ -78,14 +78,14 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btnDelete.setOnClickListener(new View.OnClickListener() { // פעולה מתארמ מה קורה כשלוחצים על כפתור ה"delete"
             @Override
             public void onClick(View view)
             {
                 FirebaseDatabase.getInstance().getReference()
                         .child("Alarm Clock").child(alarmClock.getOwner()).child(alarmClock.getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                            public void onComplete(@NonNull Task<Void> task) { //פעולה שבה מתבצעת הבדיקה אם העצם מסוג "Alarm clock" נמחק בהצלחה ולפיה מופיע אצלנו הודעה באמצטות חלון
                                 if (task.isSuccessful())
                                 {
                                     Toast.makeText(getContext(), "deleted successfully", Toast.LENGTH_SHORT).show();

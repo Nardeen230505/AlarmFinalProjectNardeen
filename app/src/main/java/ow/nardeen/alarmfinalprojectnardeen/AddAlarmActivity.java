@@ -78,7 +78,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         btnSetAlarm = findViewById(R.id.btnSetAlarm);
 
 
-        if (getIntent()!=null && getIntent().hasExtra("toEdit"))
+        /*if (getIntent()!=null && getIntent().hasExtra("toEdit"))
         {
             toEdit=true;
             alarmClock= (AlarmClock) getIntent().getExtras().get("toEdit");
@@ -87,7 +87,7 @@ public class AddAlarmActivity extends AppCompatActivity {
             etTask.setText(alarmClock.getTask());
             etMessage.setText(alarmClock.getMessage());
 
-        }
+        }*/
 
         Calendar calendar = Calendar.getInstance(); // بناء كائن من نوع تقويم - calendar
         // The Calendar class is an abstract class that provides methods for converting between a specific instant in time
@@ -110,12 +110,13 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         mPickTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { // //פעולה מתארמ מה קורה כשלוחצים על כפתור ה"mPickTimeButton" לבחירת זמן
                 TimePickerDialog timePickerDialog = new TimePickerDialog(mcontext, new TimePickerDialog.OnTimeSetListener()
                                                                                    // معالج حدث الوقت
                 { // ديالوج للوقت الي بختار عليه الوقت
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
+                        // פעולה
                         mTimeTextView.setText(hourOfDay + ":" + minute);
                         alarmClock.setHour(hour);
                         alarmClock.setMinute(minute);
@@ -127,6 +128,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         });
 
         btnSaveAndSend.setOnClickListener(new View.OnClickListener() { // دالو معالج الحدث بعر الضغط على الزر
+            // //פעולה מתארת מה קורה כשלוחצים על כפתור ה"btnSaveAndSend" - שומר את העצם מסוג שעון מעורר ושולח אותו
             @Override
             public void onClick(View view)
             {
@@ -180,6 +182,22 @@ public class AddAlarmActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() { // استخراج كائن
+        super.onResume();
+        if (getIntent()!=null && getIntent().hasExtra("toEdit"))
+        {
+            toEdit=true;
+            alarmClock= (AlarmClock) getIntent().getExtras().get("toEdit");
+            btnSaveAndSend.setText("update");
+            etPhone.setText(alarmClock.getPhNo());
+            etTask.setText(alarmClock.getTask());
+            etMessage.setText(alarmClock.getMessage());
+
+        }
+
+    }
+
     // onToggleClicked() method is implemented the time functionality
     public void scheduleTime(){
         long time;
@@ -196,6 +214,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 
             // using intent i have class AlarmReceiver class which inherits
             // BroadCastReceiver
+
             Intent intent = new Intent(this, AlarmReceiver.class);
 
             // we call broadcast using pendingIntent
@@ -239,9 +258,11 @@ public class AddAlarmActivity extends AppCompatActivity {
         // استخراج رقم مميز للمستعمل
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
         alarmClock.setOwner(owner);
-
+        String key=alarmClock.getKey();
+        if (toEdit==false)
         // انتتاج الرقم المميز للساعة
-        String key = FirebaseDatabase.getInstance().getReference().
+
+            key = FirebaseDatabase.getInstance().getReference().
                 child("AlarmClockSent ").child(owner).push().getKey();
         alarmClock.setKey(key);
         }

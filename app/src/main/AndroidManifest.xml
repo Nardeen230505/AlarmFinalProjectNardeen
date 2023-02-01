@@ -21,9 +21,6 @@
             android:name=".SendMessage"
             android:exported="false" />
         <activity
-            android:name=".HistoryActivityF"
-            android:exported="false" />
-        <activity
             android:name=".SettingsActivityF"
             android:exported="false" />
         <activity
@@ -31,9 +28,6 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
             android:exported="false" />
 
         <activity
