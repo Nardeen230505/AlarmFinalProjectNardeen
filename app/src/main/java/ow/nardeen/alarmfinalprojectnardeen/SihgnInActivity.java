@@ -40,20 +40,21 @@ public class SihgnInActivity extends AppCompatActivity {
         btnSignInRec = findViewById(R.id.btnSignInRec);
 
         btnSignUp.setOnClickListener(new View.OnClickListener() { //تعريف حدث الكبسة على الزر ساين ان
+            // פעולה מתארת מה קורה כשלוחצים על כפתור ה"btnSignUp"
             @Override
             public void onClick(View view) { //معالجة حدث الدالة الي بتشتغل بعد حدوث الحدث
                 Intent iF=new Intent(SihgnInActivity.this, SignUpActivity.class); //الانتقال من الشاشة ساين ان للشاشة ساين اب
                 startActivity(iF); //عملة التفعيل الي بتخلي يصير في انتقال من بين الشاشات
             }
         });
-        btnSignInRec.setOnClickListener(new View.OnClickListener() {
+        btnSignInRec.setOnClickListener(new View.OnClickListener() { // פעולה מתארת מה קורה כשלוחצים על כפתור ה"btnSignInRec"
             @Override
             public void onClick(View view) {
                 checkAndSave(false);
 
             }
         });
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        btnSignIn.setOnClickListener(new View.OnClickListener() { // פעולה מתארת מה קורה כשלוחצים על כפתור ה"btnSignIn"
             @Override
             public void onClick(View view) {  // استدعاء الدالة checkAndSave
                 //Register a callback to be invoked when this view is clicked. If this view is not clickable, it becomes clickable.
@@ -63,6 +64,7 @@ public class SihgnInActivity extends AppCompatActivity {
     }
 
     private void checkAndSave(boolean isSender) //عملية تفحص اذا كل اشي تمام
+    // פעולה בודקת אם הכל תקין
     {
         String email=etEmail.getText().toString();
         String password=etPassword.getText().toString();

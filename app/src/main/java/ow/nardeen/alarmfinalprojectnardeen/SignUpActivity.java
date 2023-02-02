@@ -45,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-        private void CheckAndSave() {
+        private void CheckAndSave() { // פעולה בודקת אם הכל תקין
         String EmailSU = etEmail.getText().toString();
         String password = etPasswordSignUp.getText().toString();
         String RePassword = etRePassword.getText().toString();

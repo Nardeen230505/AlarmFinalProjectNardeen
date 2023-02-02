@@ -31,7 +31,7 @@ public class SplashScreen extends AppCompatActivity {
 
         Runnable r=new Runnable() {
             @Override
-            public void run() {
+            public void run() { // פעולה שבודקת אם נכנסנו לאפליקציה קודם
                 // فحص هل تم االدخول مسبقا
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 if (auth.getCurrentUser() == null) {

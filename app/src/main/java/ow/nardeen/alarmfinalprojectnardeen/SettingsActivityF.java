@@ -9,6 +9,6 @@ public class SettingsActivityF extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_f);
+        setContentView(R.layout.activity_settings_f2);
     }
 }

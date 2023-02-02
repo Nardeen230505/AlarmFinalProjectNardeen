@@ -1,4 +1,6 @@
 package ow.nardeen.alarmfinalprojectnardeen;
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -14,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -211,14 +214,15 @@ public class AddAlarmActivity extends AppCompatActivity {
             calendar1.set(Calendar.DAY_OF_MONTH, alarmClock.getDay());
             calendar1.set(Calendar.MONTH, alarmClock.getMonth());
             calendar1.set(Calendar.YEAR, alarmClock.getYear());
-
+            Log.d("TAGG",calendar1.toString());
             // using intent i have class AlarmReceiver class which inherits
             // BroadCastReceiver
 
             Intent intent = new Intent(this, AlarmReceiver.class);
 
             // we call broadcast using pendingIntent
-            pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+            pendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_IMMUTABLE);
 
             time = (calendar1.getTimeInMillis() - (calendar1.getTimeInMillis() % 60000));
             if (System.currentTimeMillis() > time) {
@@ -281,7 +285,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                             finish();
                             sendMessage(); //يرسل رسالة
                                 Toast.makeText(AddAlarmActivity.this,"added successfully", Toast.LENGTH_SHORT).show();
-                                scheduleTime();//for example
+                               // scheduleTime();//for example
                         }
                         else
                         {
