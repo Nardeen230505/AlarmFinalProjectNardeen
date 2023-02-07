@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/download"
     android:orientation="vertical"
-    tools:context=".SplashScreen" >
+    tools:context=".SplashScreen">
 
     <TextView
         android:id="@+id/tvWelcme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WELCOME"
+        android:text="Welcome to Nardeen's Alarm"
         android:textColor="@color/black"
-        android:textSize="48sp" />
+        android:textSize="30sp" />
 </LinearLayout>

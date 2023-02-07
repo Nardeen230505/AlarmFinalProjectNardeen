@@ -47,19 +47,19 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".myReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:priority="214783647">
-            <intent-filter>
-                <action android:name="com.example.Broadcast" />
+<!--        <receiver-->
+<!--            android:name=".myReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:priority="214783647">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.example.Broadcast" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
 
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
+<!--                <action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"

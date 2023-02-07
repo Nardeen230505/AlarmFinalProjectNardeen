@@ -61,7 +61,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     PendingIntent pendingIntent;
     AlarmManager alarmManager;
     private Button btnSetAlarm;
-
+    final Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +123,18 @@ public class AddAlarmActivity extends AppCompatActivity {
                         mTimeTextView.setText(hourOfDay + ":" + minute);
                         alarmClock.setHour(hour);
                         alarmClock.setMinute(minute);
+
+
+                        if (android.os.Build.VERSION.SDK_INT >= 23) {
+                            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                                    timePicker.getHour(), timePicker.getMinute(), 0);
+                        } else {
+                            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                                    timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                        }
+                        alarmClock.getDate().setTime(calendar.getTimeInMillis());
+
+                        //setAlarm(calendar.getTimeInMillis());
                     }
                 },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
                                                                // فورمات السيعة ب24 سيعة
@@ -179,7 +191,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         btnSetAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scheduleTime();
+               // scheduleTime();
             }
         });
 
@@ -286,6 +298,18 @@ public class AddAlarmActivity extends AppCompatActivity {
                             sendMessage(); //يرسل رسالة
                                 Toast.makeText(AddAlarmActivity.this,"added successfully", Toast.LENGTH_SHORT).show();
                                // scheduleTime();//for example
+                            Calendar calendar = Calendar.getInstance();
+                            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                                        timePicker.getHour(), timePicker.getMinute(), 0);
+                            } else {
+                                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                                        timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+                            }
+
+
+                            setAlarm(calendar.getTimeInMillis());
+
                         }
                         else
                         {
@@ -297,6 +321,21 @@ public class AddAlarmActivity extends AppCompatActivity {
     }
 
 
+    private void setAlarm(long time) {
+        //getting the alarm manager
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //creating a new intent specifying the broadcast receiver
+        Intent i = new Intent(this, MyAlarm.class);
+
+        //creating a pending intent using the intent
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_MUTABLE);
+
+        //setting the repeating alarm that will be fired every day
+        AlarmManager.AlarmClockInfo alarmClockInfo=new AlarmManager.AlarmClockInfo(time,pi);
+        am.setAlarmClock(alarmClockInfo, pi);
+        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
+    }
     private void showDatePickerDialog() // ظهور ديالوج التاريخ
     {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
@@ -307,6 +346,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                         alarmClock.setDay(day);
                         alarmClock.setMonth(month);
                         alarmClock.setYear(year);
+
 
                     }
                 },
