@@ -28,6 +28,15 @@ public class AlarmClock implements Serializable
     private String owner; //رقم مميز للمستعمل
     private String key; // رقم مميز للساعة يتم انتاجه من قِبل الخادم - firebase
     private Date date=new Date();
+    private long timeMils;
+
+    public long getTimeMils() {
+        return timeMils;
+    }
+
+    public void setTimeMils(long timeMils) {
+        this.timeMils = timeMils;
+    }
 
     public Date getDate() {
         return date;
