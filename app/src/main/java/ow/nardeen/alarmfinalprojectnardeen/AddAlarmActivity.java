@@ -123,8 +123,8 @@ public class AddAlarmActivity extends AppCompatActivity {
                         mTimeTextView.setText(hourOfDay + ":" + minute);
                         alarmClock.setHour(hourOfDay);
                         alarmClock.setMinute(minute);
-                        calendar.set(hourOfDay,Calendar.HOUR_OF_DAY);
-                        calendar.set(minute,Calendar.MINUTE);
+                        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
                         alarmClock.getDate().setHours(hourOfDay);
                         alarmClock.getDate().setMinutes(minute);
 
@@ -305,7 +305,7 @@ public class AddAlarmActivity extends AppCompatActivity {
 //                            }
 
 
-                            setAlarm(calendar.getTimeInMillis());
+                            //setAlarm(calendar.getTimeInMillis());
 
                         }
                         else
@@ -347,9 +347,9 @@ public class AddAlarmActivity extends AppCompatActivity {
                         alarmClock.getDate().setYear(year);
                         alarmClock.getDate().setDate(day);
 
-                        calendar.set(day,Calendar.DAY_OF_MONTH);
-                        calendar.set(year,Calendar.YEAR);
-                        calendar.set(month,Calendar.MONTH);
+                        calendar.set(Calendar.DAY_OF_MONTH,day);
+                        calendar.set(Calendar.YEAR,year);
+                        calendar.set(Calendar.MONTH,month);
 
                     }
                 },

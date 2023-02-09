@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -125,6 +129,15 @@ public class MainActivity2 extends AppCompatActivity {
 
                     AlarmClock alarm=d.getValue(AlarmClock.class); //استخراج الكائن المحفوظ
                     alarmAdapter.add(alarm); //اضافة كائن للوسيط
+//                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
+//                    {
+                        //todo check if receiver and check scheduled list. add to scheduled list
+                    Calendar instance = Calendar.getInstance();
+                    instance.setTimeInMillis(alarm.getTimeMils());
+                    Toast.makeText(MainActivity2.this, ""+instance, Toast.LENGTH_SHORT).show();
+                   Log.d("TAGG",instance.getTime()+" timed");
+                    setAlarm(alarm.getTimeMils());
+//                    }
 
                 }
             }
@@ -136,7 +149,21 @@ public class MainActivity2 extends AppCompatActivity {
             }
         }); //الممشاك بدو تطبيق عن طريق بناء كائن الي بعمل انينوموس كلاس
     }
+    private void setAlarm(long time) {
+        //getting the alarm manager
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
+        //creating a new intent specifying the broadcast receiver
+        Intent i = new Intent(this, MyAlarm.class);
+
+        //creating a pending intent using the intent
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_MUTABLE);
+
+        //setting the repeating alarm that will be fired every day
+        AlarmManager.AlarmClockInfo alarmClockInfo=new AlarmManager.AlarmClockInfo(time,pi);
+        am.setAlarmClock(alarmClockInfo, pi);
+        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
