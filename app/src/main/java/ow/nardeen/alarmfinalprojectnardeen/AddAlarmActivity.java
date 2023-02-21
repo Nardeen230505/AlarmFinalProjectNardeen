@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
@@ -47,7 +48,6 @@ public class AddAlarmActivity extends AppCompatActivity {
     private TextInputEditText etTask;
     private EditText Date;
     private Button btnSaveAndSend;
-    private TextView mTimeTextView;
     private EditText mPickTimeButton;
     Context mcontext = this;
     private AlarmClock alarmClock=new AlarmClock();
@@ -74,11 +74,9 @@ public class AddAlarmActivity extends AppCompatActivity {
         Date=findViewById(R.id.btnDate);
         btnSaveAndSend=findViewById(R.id.btnSaveAndSend);
         etMessage=findViewById(R.id.etMessage);
-        mTimeTextView = (TextView) findViewById(R.id.etDate);
         rdHigh=findViewById(R.id.rdHigh);
         rdMedium=findViewById(R.id.rdMedium);
         rdLow=findViewById(R.id.rdLow);
-        btnSetAlarm = findViewById(R.id.btnSetAlarm);
 
 
         /*if (getIntent()!=null && getIntent().hasExtra("toEdit"))
@@ -96,8 +94,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         // The Calendar class is an abstract class that provides methods for converting between a specific instant in time
         // and a set of calendar fields such as YEAR, MONTH, DAY_OF_MONTH, HOUR, and so on, and for manipulating the calendar fields,
         // such as getting the date of the next week. An instant in time can be represented by a millisecond value
-        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        final int minute = calendar.get(Calendar.MINUTE);
+
 
         mPickTimeButton = findViewById(R.id.pickTimebtn);
 
@@ -114,27 +111,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         mPickTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // //פעולה מתארמ מה קורה כשלוחצים על כפתור ה"mPickTimeButton" לבחירת זמן
-                TimePickerDialog timePickerDialog = new TimePickerDialog(mcontext, new TimePickerDialog.OnTimeSetListener()
-                                                                                   // معالج حدث الوقت
-                { // ديالوج للوقت الي بختار عليه الوقت
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
-                        // פעולה
-                        mTimeTextView.setText(hourOfDay + ":" + minute);
-                        alarmClock.setHour(hourOfDay);
-                        alarmClock.setMinute(minute);
-                        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                        calendar.set(Calendar.MINUTE, minute);
-                        alarmClock.getDate().setHours(hourOfDay);
-                        alarmClock.getDate().setMinutes(minute);
-
-
-
-                        //setAlarm(calendar.getTimeInMillis());
-                    }
-                },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
-                                                               // فورمات السيعة ب24 سيعة
-                timePickerDialog.show(); // ظهور ديالوج الوقت
+                showTimeDialog();
             }
         });
 
@@ -184,12 +161,53 @@ public class AddAlarmActivity extends AppCompatActivity {
       //  alarmTimePicker = (TimePicker) findViewById(R.id.timePicker);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-        btnSetAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // scheduleTime();
-            }
-        });
+
+
+    }
+
+    private  void showTimeDialog()
+    {
+        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int minute = calendar.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
+            // معالج حدث الوقت
+    { // ديالوج للوقت الي بختار عليه الوقت
+        @Override
+        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) { //معالج الحدث بعد اختيار الوقت
+            // פעולה
+            mPickTimeButton.setText(hourOfDay + ":" + minute);
+            calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+
+
+
+            //setAlarm(calendar.getTimeInMillis());
+        }
+    },hour, minute, android.text.format.DateFormat.is24HourFormat(mcontext)); // كمالة بارامترات الدالة onTimeSet
+        // فورمات السيعة ب24 سيعة
+        timePickerDialog.show(); // ظهور ديالوج الوقت
+    }
+
+    private void showDatePickerDialog() // ظهور ديالوج التاريخ
+    {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        Date.setText(day + "/" + month + "/" + year);
+
+
+                        calendar.set(Calendar.DAY_OF_MONTH,day);
+                        calendar.set(Calendar.YEAR,year);
+                        calendar.set(Calendar.MONTH,month);
+                        showTimeDialog();
+                    }
+                },
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show(); // ظهور ديالوج التاريخ
 
     }
 
@@ -208,37 +226,32 @@ public class AddAlarmActivity extends AppCompatActivity {
         }
 
     }
-
     // onToggleClicked() method is implemented the time functionality
     public void scheduleTime(){
         long time;
 
-            Toast.makeText(AddAlarmActivity.this, "ALARM ON", Toast.LENGTH_SHORT).show();
-            Calendar calendar1 = Calendar.getInstance();
+        Toast.makeText(AddAlarmActivity.this, "ALARM ON", Toast.LENGTH_SHORT).show();
 
-            // calendar is called to get currnet time in hour and minute
-            calendar1.set(Calendar.HOUR_OF_DAY,alarmClock.getHour());
-            calendar1.set(Calendar.MINUTE, alarmClock.getMinute());
-            calendar1.set(Calendar.DAY_OF_MONTH, alarmClock.getDay());
-            calendar1.set(Calendar.MONTH, alarmClock.getMonth());
-            calendar1.set(Calendar.YEAR, alarmClock.getYear());
-            Log.d("TAGG",calendar1.toString());
-            // using intent i have class AlarmReceiver class which inherits
-            // BroadCastReceiver
 
-            Intent intent = new Intent(this, AlarmReceiver.class);
+        // calendar is called to get currnet time in hour and minute
 
-            // we call broadcast using pendingIntent
+        Log.d("TAGG",calendar.toString());
+        // using intent i have class AlarmReceiver class which inherits
+        // BroadCastReceiver
 
-            pendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_IMMUTABLE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
 
-            time = (calendar1.getTimeInMillis() - (calendar1.getTimeInMillis() % 60000));
-            if (System.currentTimeMillis() > time) {
-                // setting time as  AM  and PM
-                if (Calendar.AM_PM == 0)
-                    time = time + (1000 * 60 * 60 * 12);
-                else
-                    time = time + (1000 * 60 * 60 * 24);
+        // we call broadcast using pendingIntent
+
+        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_IMMUTABLE);
+
+        time = (calendar.getTimeInMillis() - (calendar.getTimeInMillis() % 60000));
+        if (System.currentTimeMillis() > time) {
+            // setting time as  AM  and PM
+            if (Calendar.AM_PM == 0)
+                time = time + (1000 * 60 * 60 * 12);
+            else
+                time = time + (1000 * 60 * 60 * 24);
 
 
             // Alarm rings continuously until toggle button is turned off
@@ -253,6 +266,23 @@ public class AddAlarmActivity extends AppCompatActivity {
     }
 
 
+    private void setAlarm(long time) {
+        //getting the alarm manager
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //creating a new intent specifying the broadcast receiver
+        Intent i = new Intent(this, AlarmReceiver.class);
+
+        //creating a pending intent using the intent
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_MUTABLE);
+
+        //setting the repeating alarm that will be fired every day
+        AlarmManager.AlarmClockInfo alarmClockInfo=new AlarmManager.AlarmClockInfo(time,pi);
+        am.setAlarmClock(alarmClockInfo, pi);
+        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
+    }
+
+
 
     private void checkAndSave() {
         String phone = etPhone.getText().toString();
@@ -260,12 +290,26 @@ public class AddAlarmActivity extends AppCompatActivity {
         Boolean rLow = rdLow.isChecked();
         Boolean rMedium = rdMedium.isChecked();
         Boolean rHigh = rdHigh.isChecked();
+
+        if (rLow)
+        {
+            alarmClock.setPriority(1);
+        }
+
+        if (rMedium)
+        {
+            alarmClock.setPriority(2);
+        }
+
+        if (rHigh)
+        {
+            alarmClock.setPriority(3);
+        }
+
         alarmClock.setPhNo(phone);
         alarmClock.setMessage(message);
-        alarmClock.setLow(rLow);
-        alarmClock.setMedium(rMedium);
-        alarmClock.setHigh(rHigh);
         alarmClock.setTimeMils(calendar.getTimeInMillis());
+
         if (toEdit == false)
         {
         // استخراج رقم مميز للمستعمل
@@ -279,7 +323,6 @@ public class AddAlarmActivity extends AppCompatActivity {
                 child("AlarmClockSent ").child(owner).push().getKey();
         alarmClock.setKey(key);
         }
-
 
 
         //حفظ بالخادم
@@ -318,48 +361,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     }
 
 
-    private void setAlarm(long time) {
-        //getting the alarm manager
-        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        //creating a new intent specifying the broadcast receiver
-        Intent i = new Intent(this, MyAlarm.class);
-
-        //creating a pending intent using the intent
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_MUTABLE);
-
-        //setting the repeating alarm that will be fired every day
-        AlarmManager.AlarmClockInfo alarmClockInfo=new AlarmManager.AlarmClockInfo(time,pi);
-        am.setAlarmClock(alarmClockInfo, pi);
-        Toast.makeText(this, "Alarm is set", Toast.LENGTH_SHORT).show();
-    }
-    private void showDatePickerDialog() // ظهور ديالوج التاريخ
-    {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        Date.setText(day + "/" + month + "/" + year);
-                        alarmClock.setDay(day);
-                        alarmClock.setMonth(month);
-                        alarmClock.setYear(year);
-                        alarmClock.getDate().setMonth(month);
-                        alarmClock.getDate().setYear(year);
-                        alarmClock.getDate().setDate(day);
-
-                        calendar.set(Calendar.DAY_OF_MONTH,day);
-                        calendar.set(Calendar.YEAR,year);
-                        calendar.set(Calendar.MONTH,month);
-
-                    }
-                },
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.show(); // ظهور ديالوج التاريخ
-
-    }
 
     private void sendMessage() {
         //get values from edit text
@@ -415,5 +417,22 @@ public class AddAlarmActivity extends AppCompatActivity {
         String date = "month/day/year: " + datePicker.getMonth() + "/" + datePicker.getDayOfMonth() + "/" + datePicker.getYear();
 
     }*/
+
+    private void addToGoogleCalender()
+    {
+        Calendar brginTime = Calendar.getInstance();
+        brginTime.set(calendar.getTime().getYear(), calendar.getTime().getMonth(), calendar.getTime().getDay(),
+                calendar.getTime().getHours(),calendar.getTime().getMinutes() );
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(calendar.getTime().getYear(), calendar.getTime().getMonth(), calendar.getTime().getDay(), calendar.getTime().getHours(),
+                calendar.getTime().getMinutes());
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, brginTime.getTimeInMillis())
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis())
+                .putExtra(CalendarContract.Events.TITLE, "Alarms:")
+                .putExtra(CalendarContract.Events.DESCRIPTION, "Alarm Description");
+        startActivity(intent);
+    }
 
 }

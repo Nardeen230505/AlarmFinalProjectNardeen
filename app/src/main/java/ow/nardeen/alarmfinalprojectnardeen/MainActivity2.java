@@ -154,7 +154,7 @@ public class MainActivity2 extends AppCompatActivity {
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         //creating a new intent specifying the broadcast receiver
-        Intent i = new Intent(this, MyAlarm.class);
+        Intent i = new Intent(this, AlarmReceiver.class);
 
         //creating a pending intent using the intent
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_MUTABLE);

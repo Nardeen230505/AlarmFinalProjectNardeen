@@ -53,21 +53,13 @@ public class AlarmAdapter extends ArrayAdapter<AlarmClock> // تخصيص الو�
         Button btnDelete = vItem.findViewById(R.id.btnDelete);
         TextView tvPriority = vItem.findViewById(R.id.tPriority);
 
-
+        //todo arrange item and fix date and time format
         // باخد القيم تبعت المهمة وبحطهن بالحقول
         final AlarmClock alarmClock = getItem(position); //عملت كائن وبدي استخرج القيم الي الو عن طريق الposition الي الو
         // بناء الكائن بهدف استخراج القيم من الحقول
         tvPhone.setText(alarmClock.getPhNo());
         tvMessage.setText(alarmClock.getMessage());
-        if (alarmClock.getHigh()){
-            tvPriority.setText("3");
-        }
-        if (alarmClock.getMedium()){
-            tvPriority.setText("2");
-        }
-        if (alarmClock.getLow()){
-            tvPriority.setText("1");
-        }
+        tvPriority.setText(alarmClock.getPriority()+""); // عشان يتحول لنص
         btnEdit.setOnClickListener(new View.OnClickListener() { //פעולה מתארמ מה קורה כשלוחצים על כפתור ה"edit"
             @Override
             public void onClick(View view) {

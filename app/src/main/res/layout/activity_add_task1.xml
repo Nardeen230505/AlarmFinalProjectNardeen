@@ -30,24 +30,12 @@
         android:hint="Date"
         android:id="@+id/btnDate"/>
 
-    <TextView
-        android:id="@+id/etDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="date" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Time"
         android:id="@+id/pickTimebtn"/>
 
-
-    <TextView
-        android:id="@+id/etTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Time" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -75,15 +63,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnSetAlarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="set alarm" />
-    </LinearLayout>
+        android:orientation="horizontal"/>
 
     <Button
         android:id="@+id/btnSaveAndSend"

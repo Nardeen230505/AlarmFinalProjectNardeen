@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/backk"
     tools:context=".MainActivity2">
 
     <SearchView
@@ -21,12 +22,14 @@
         android:id="@+id/imgbtnAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <Button
         android:id="@+id/btnsend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
         android:onClick="btnSendBroadcast"
         android:text="send broadcast" />
 
