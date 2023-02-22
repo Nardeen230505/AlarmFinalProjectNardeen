@@ -26,6 +26,8 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -106,6 +108,9 @@ public class MainActivity2 extends AppCompatActivity {
         // أي تغيير بقيمة صفة او حذف او اضافة كائن يتم اعلام الlistener
         //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+
         FirebaseDatabase.getInstance().getReference()
                 .child("Alarm Clock").child(owner).addValueEventListener(new ValueEventListener() {
             /**
@@ -131,12 +136,59 @@ public class MainActivity2 extends AppCompatActivity {
                     alarmAdapter.add(alarm); //اضافة كائن للوسيط
 //                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
 //                    {
+                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
+                    {
+                        //todo delete past alarms
+                    }
                         //todo check if receiver and check scheduled list. add to scheduled list
-                    Calendar instance = Calendar.getInstance();
-                    instance.setTimeInMillis(alarm.getTimeMils());
-                    Toast.makeText(MainActivity2.this, ""+instance, Toast.LENGTH_SHORT).show();
-                   Log.d("TAGG",instance.getTime()+" timed");
-                    setAlarm(alarm.getTimeMils());
+                    else
+                    if (!isSender) {// i am receiver i am not sender
+
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("Receicer").child(alarm.getOwner()).child(alarm.getKey()).setValue(alarm)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    // بفحص اذا الاشي الي نحفظ تكبن ولا لا
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful())
+                                        {
+                                            finish();
+                                            addToGoogleCalender();
+                                            Toast.makeText(MainActivity2.this,"added successfully", Toast.LENGTH_SHORT).show();
+                                            // scheduleTime();//for example
+//                            Calendar calendar = Calendar.getInstance();
+//                            if (android.os.Build.VERSION.SDK_INT >= 23) {
+//                                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+//                                        timePicker.getHour(), timePicker.getMinute(), 0);
+//                            } else {
+//                                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+//                                        timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+//                            }
+
+
+                                            //setAlarm(calendar.getTimeInMillis());
+
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(MainActivity2.this,"added failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                });
+
+
+
+
+                        Calendar instance = Calendar.getInstance();
+                        instance.setTimeInMillis(alarm.getTimeMils());
+                        Toast.makeText(MainActivity2.this, "" + instance, Toast.LENGTH_SHORT).show();
+                        Log.d("TAGG", instance.getTime() + " timed");
+                        setAlarm(alarm.getTimeMils());
+
+
+                    }
 //                    }
 
                 }

@@ -1,7 +1,9 @@
 package ow.nardeen.alarmfinalprojectnardeen;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,9 +37,50 @@ public class SplashScreen extends AppCompatActivity {
                 // فحص هل تم االدخول مسبقا
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 if (auth.getCurrentUser() == null) {
-                    Intent i = new Intent(SplashScreen.this, SihgnInActivity.class); //الانتقال من شاشة لشاشة عن طريق الكائنi
-                    startActivity(i); //بدء تشغيل الشاشة
-                    finish(); //لتسكير الشاشة
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this); //بنّاء الديالوج
+                    builder.setTitle("Select user type");
+                    builder.setMessage("Are you sender or receiver?");
+                    builder.setPositiveButton("Receiver", new DialogInterface.OnClickListener() { // هاي الدالة بتطلعلي زي هودعا صغيرة الي بقولولها ديالوج الي اذا ضغطت على الزر يس بسالي اذا مااكدة اني دطلع او لا
+                        // هاد مأزين للضغط على الزر يس سيعتها بطلعلي ديالوج وبعمل شو مكتوب داخل الدالة
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i)
+                        //واجهة للديالوج
+                        {
+                            dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
+                            Intent i2=new Intent(SplashScreen.this,MainActivity2.class);
+                            i2.putExtra("isSender", false);
+                            startActivity(i2);
+
+                            //الخروج من الشاشة
+                            finish();
+                        }
+                    });
+                    //هون اذا انا بديش اعمل ساين اوت للحساب
+
+                    builder.setNegativeButton("Sender", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i)
+                        {
+                            dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
+                            Intent i1=new Intent(SplashScreen.this,MainActivity2.class);
+                            i1.putExtra("isSender", true);
+                            startActivity(i1);
+
+                            //الخروج من الشاشة
+                            finish();
+                            dialogInterface.cancel(); // اخفاء شاشة الديالوج بدون الحفظ في الذاكرة
+                        }
+                    });
+
+                    // بناء الديالوج
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+
+
+
+
                 }
                 else {
                     Intent i = new Intent(SplashScreen.this, MainActivity2.class);
