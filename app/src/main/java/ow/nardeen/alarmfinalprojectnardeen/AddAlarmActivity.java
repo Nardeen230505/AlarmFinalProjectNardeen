@@ -56,7 +56,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     private RadioButton rdMedium;
     private RadioButton rdLow;
   /*  private EditText etHour, etMinute;
-    int minute, hour, day;*/
+    int minute, hour, day; */
     TimePicker alarmTimePicker;
     PendingIntent pendingIntent;
     AlarmManager alarmManager;
@@ -335,6 +335,7 @@ public class AddAlarmActivity extends AppCompatActivity {
                         if (task.isSuccessful())
                         {
                             finish();
+                            addToGoogleCalender();
                             sendMessage(); //يرسل رسالة
                                 Toast.makeText(AddAlarmActivity.this,"added successfully", Toast.LENGTH_SHORT).show();
                                // scheduleTime();//for example
