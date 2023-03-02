@@ -99,8 +99,7 @@ public class MainActivity2 extends AppCompatActivity {
             isSender=getIntent().getBooleanExtra("isSender",true);
         }
     }
-
-    private void readAlarmFromFireBase()
+    private void readAlarmFromFireBase(String phone)
     {
         //مؤشر لجذر قاعدة البيانات التابعة للمشروع
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -109,6 +108,105 @@ public class MainActivity2 extends AppCompatActivity {
         //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        FirebaseDatabase.getInstance().getReference()
+                .child("Sender").child("tel"+phone).addValueEventListener(new ValueEventListener() {
+                    /**
+                     * دالة معالجة حدث عند تغيير اي قيمة
+                     * @param snapshot يحوي نسخة عن كل المعطيات تحت العنوان المُراقب - العنوان المراقب يعني العنوان الي حاطة عليه ليسينير-
+                     */
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) //اذا غيرت اشي بتغير بالفاير بيس
+                    //What I mean is to save the project as is at the moment and
+                    // be able to make heavy changes without fearing to destroy
+                    // what is already working well and also to be able to restart
+                    // from this "snapshot" if it happens that the changes made break the project.
+                    { // هادا معالج حدث للداتا تشينج يعني معالج حدث بالفاير بيس
+
+                        // remove all alarms from adapter
+                        alarmAdapter.clear();
+
+                        // استخراج المعطيات ونحطهن بالادابتير
+                        for (DataSnapshot d:snapshot.getChildren()) {
+                            //d يمر على جميع قيم مبنى المعطيات
+
+                            AlarmClock alarm=d.getValue(AlarmClock.class); //استخراج الكائن المحفوظ
+                            alarmAdapter.add(alarm); //اضافة كائن للوسيط
+//                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
+//                    {
+                            if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
+                            {
+                                //todo delete past alarms
+                            }
+                            else
+                            if (!isSender) {// i am receiver i am not sender
+
+                                //todo check scheduled list. add to scheduled list
+
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("Receiver").child(alarm.getOwner()).child(alarm.getKey()).setValue(alarm)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            // بفحص اذا الاشي الي نحفظ تكبن ولا لا
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful())
+                                                {
+                                                    finish();
+                                                    // addToGoogleCalender();
+                                                    Toast.makeText(MainActivity2.this,"added successfully", Toast.LENGTH_SHORT).show();
+                                                    // scheduleTime();//for example
+//                            Calendar calendar = Calendar.getInstance();
+//                            if (android.os.Build.VERSION.SDK_INT >= 23) {
+//                                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+//                                        timePicker.getHour(), timePicker.getMinute(), 0);
+//                            } else {
+//                                calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+//                                        timePicker.getCurrentHour(), timePicker.getCurrentMinute(), 0);
+//                            }
+
+
+                                                    //setAlarm(calendar.getTimeInMillis());
+
+                                                }
+                                                else
+                                                {
+                                                    Toast.makeText(MainActivity2.this,"added failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+                                        });
+
+
+
+
+                                Calendar instance = Calendar.getInstance();
+                                instance.setTimeInMillis(alarm.getTimeMils());
+                                Toast.makeText(MainActivity2.this, "" + instance, Toast.LENGTH_SHORT).show();
+                                Log.d("TAGG", instance.getTime() + " timed");
+                                setAlarm(alarm.getTimeMils());
+
+
+                            }
+//                    }
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error)
+                    {
+
+                    }
+                }); //الممشاك بدو تطبيق عن طريق بناء كائن الي بعمل انينوموس كلاس
+    }
+    // todo fix it
+    private void readAlarmFromFireBase()
+    {
+        //مؤشر لجذر قاعدة البيانات التابعة للمشروع
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        // listener لمراقبة أي تغيير يحدث تحت الجذر المحدد
+        // أي تغيير بقيمة صفة او حذف او اضافة كائن يتم اعلام الlistener
+        //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
+        String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
         FirebaseDatabase.getInstance().getReference()
@@ -140,13 +238,13 @@ public class MainActivity2 extends AppCompatActivity {
                     {
                         //todo delete past alarms
                     }
-                        //todo check if receiver and check scheduled list. add to scheduled list
                     else
                     if (!isSender) {// i am receiver i am not sender
 
+                        //todo check scheduled list. add to scheduled list
 
                         FirebaseDatabase.getInstance().getReference()
-                                .child("Receicer").child(alarm.getOwner()).child(alarm.getKey()).setValue(alarm)
+                                .child("Receiver").child(alarm.getOwner()).child(alarm.getKey()).setValue(alarm)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     // بفحص اذا الاشي الي نحفظ تكبن ولا لا
                                     @Override
@@ -154,7 +252,7 @@ public class MainActivity2 extends AppCompatActivity {
                                         if (task.isSuccessful())
                                         {
                                             finish();
-                                            addToGoogleCalender();
+                                           // addToGoogleCalender();
                                             Toast.makeText(MainActivity2.this,"added successfully", Toast.LENGTH_SHORT).show();
                                             // scheduleTime();//for example
 //                            Calendar calendar = Calendar.getInstance();
