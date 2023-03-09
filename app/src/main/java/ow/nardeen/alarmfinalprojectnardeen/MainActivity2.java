@@ -336,6 +336,13 @@ public class MainActivity2 extends AppCompatActivity {
         }
         // الانتنت هو وصف للعملية المطلوب اجراؤها يمكن استخدامه مع startActivity لبدء النشاط او لارساله لأي من مكونات المهمة وللتواصل مع خدمة الخلفية
         // الانتنت هو الي بساعدني انقل من شاشة لشاشة
+
+       if (item.getItemId()==R.id.itmProfile)
+       {
+           Intent intentP = new Intent(MainActivity2.this, ProfileActivity.class);
+           startActivity(intentP);
+       }
+
         if (item.getItemId()==R.id.itmAddAlarm)
         {
             Intent iA=new Intent(MainActivity2.this, AddAlarmActivity.class);

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backk"
+    tools:context=".ProfileActivity">
+
+    <EditText
+        android:id="@+id/edFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:drawableLeft="@drawable/account"
+        android:drawableTint="#FDF9F9"
+        android:hint=" First Name" />
+
+    <EditText
+        android:id="@+id/edSecondName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:drawableLeft="@drawable/account"
+        android:drawableTint="#F8F4F4"
+        android:hint=" Second Name" />
+
+    <EditText
+        android:id="@+id/edPhoneP"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:drawableLeft="@android:drawable/ic_menu_call"
+        android:drawableTint="#F6FBFB"
+        android:hint=" Phone" />
+
+    <Button
+        android:id="@+id/btnSaveProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:text="save" />
+</LinearLayout>
