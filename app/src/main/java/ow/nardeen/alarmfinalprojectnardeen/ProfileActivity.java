@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +27,9 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnSaveProfile;
     private boolean toUpdate=true;
     Profile profile = null;
+    private RadioButton sender;
+    private RadioButton receiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,10 @@ public class ProfileActivity extends AppCompatActivity {
         edSecondName =  findViewById(R.id.edSecondName);
         edPhoneP = findViewById(R.id.edPhoneP);
         btnSaveProfile = findViewById(R.id.btnSaveProfile);
+        sender = findViewById(R.id.rdSender);
+        receiver = findViewById(R.id.rdReceiever);
+
+
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

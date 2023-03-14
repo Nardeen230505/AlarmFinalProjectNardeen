@@ -5,6 +5,15 @@ public class Profile
     public static String phoneNumber="";
     private String  FirstName, SecondName;
     private String owner, key;
+    private boolean isSender;
+
+    public boolean isSender() {
+        return isSender;
+    }
+
+    public void setSender(boolean sender) {
+        isSender = sender;
+    }
 
     public String getKey() {
         return key;
@@ -49,11 +58,11 @@ public class Profile
     @Override
     public String toString() {
         return "Profile{" +
-                "phoneNumber='" + phoneNumber + '\'' +
-                ", FirstName='" + FirstName + '\'' +
+                "FirstName='" + FirstName + '\'' +
                 ", SecondName='" + SecondName + '\'' +
                 ", owner='" + owner + '\'' +
                 ", key='" + key + '\'' +
+                ", isSender=" + isSender +
                 '}';
     }
 }

@@ -27,10 +27,27 @@
     <EditText
         android:id="@+id/edPhoneP"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="68dp"
         android:drawableLeft="@android:drawable/ic_menu_call"
         android:drawableTint="#F6FBFB"
         android:hint="  Phone" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="115dp" >
+
+        <RadioButton
+            android:id="@+id/rdSender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sender" />
+
+        <RadioButton
+            android:id="@+id/rdReceiever"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Receiver" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnSaveProfile"
