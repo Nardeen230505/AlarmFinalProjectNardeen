@@ -7,7 +7,7 @@
     android:layout_marginStart="10sp"
     android:layout_marginEnd="10sp"
     android:orientation="vertical"
-    android:background="@drawable/backk"
+    android:background="@drawable/white"
     tools:context=".SihgnInActivity">
 
     <EditText
@@ -40,24 +40,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#00ED84BB"
-            android:text="SignUp" />
+            android:backgroundTint="@color/black"
+            android:text="SignUp"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#00ED84BB"
+            android:backgroundTint="@color/black"
 
-            android:text="SignIn" />
+            android:text="SignIn"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnSignInRec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="#00ED84BB"
-            android:text="SignInAs Receiver" />
+            android:backgroundTint="@color/black"
+            android:text="SignInAs Receiver"
+            android:textColor="@color/white" />
     </LinearLayout>
 </LinearLayout>

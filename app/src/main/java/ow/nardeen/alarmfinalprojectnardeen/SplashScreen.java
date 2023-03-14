@@ -1,5 +1,6 @@
 package ow.nardeen.alarmfinalprojectnardeen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,8 +10,16 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import ow.nardeen.alarmfinalprojectnardeen.Data.Profile;
 
 public class SplashScreen extends AppCompatActivity {
+
+    public static boolean isSender=false;
 /*
 اول شاشة بتفتح لما بتم التشغيل
  */
@@ -30,7 +39,6 @@ public class SplashScreen extends AppCompatActivity {
         //يسمح لك المعالج بإرسال ومعالجة الرسائل والكائنات القابلة للتشغيل المرتبطة بـ MessageQueue الخاصة بمؤشر الترابط.
         // يتم إقران كل مثيل Handler بسلسلة رسائل فردية وقائمة انتظار رسائل هذا الموضوع. عندما تنشئ معالجًا جديدًا ، يكون مرتبطًا بـ Looper.
         // سيقوم بتسليم الرسائل والقابلة للتشغيل إلى قائمة انتظار رسائل Looper وتنفيذها على مؤشر ترابط Looper هذا.
-
         Runnable r=new Runnable() {
             @Override
             public void run() { // פעולה שבודקת אם נכנסנו לאפליקציה קודם
@@ -48,8 +56,9 @@ public class SplashScreen extends AppCompatActivity {
                         //واجهة للديالوج
                         {
                             dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
-                            Intent i2=new Intent(SplashScreen.this,MainActivity2.class);
+                            Intent i2=new Intent(SplashScreen.this,SihgnInActivity.class);
                             i2.putExtra("isSender", false);
+                            isSender=false;
                             startActivity(i2);
 
                             //الخروج من الشاشة
@@ -63,10 +72,10 @@ public class SplashScreen extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i)
                         {
                             dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
-                            Intent i1=new Intent(SplashScreen.this,MainActivity2.class);
+                            Intent i1=new Intent(SplashScreen.this,SihgnInActivity.class);
                             i1.putExtra("isSender", true);
                             startActivity(i1);
-
+                            isSender=true;
                             //الخروج من الشاشة
                             finish();
                             dialogInterface.cancel(); // اخفاء شاشة الديالوج بدون الحفظ في الذاكرة
@@ -93,4 +102,6 @@ public class SplashScreen extends AppCompatActivity {
         };
         h.postDelayed(r,2000);
     }
+
+
 }

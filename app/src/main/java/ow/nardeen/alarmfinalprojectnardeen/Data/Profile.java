@@ -2,8 +2,17 @@ package ow.nardeen.alarmfinalprojectnardeen.Data;
 
 public class Profile
 {
-    private String phoneNumber, FirstName, SecondName;
-    private String owner;
+    public static String phoneNumber="";
+    private String  FirstName, SecondName;
+    private String owner, key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getOwner() {
         return owner;
@@ -44,6 +53,7 @@ public class Profile
                 ", FirstName='" + FirstName + '\'' +
                 ", SecondName='" + SecondName + '\'' +
                 ", owner='" + owner + '\'' +
+                ", key='" + key + '\'' +
                 '}';
     }
 }

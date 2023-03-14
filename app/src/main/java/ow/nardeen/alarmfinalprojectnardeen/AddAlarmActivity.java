@@ -327,7 +327,9 @@ public class AddAlarmActivity extends AppCompatActivity {
 
         //حفظ بالخادم
         FirebaseDatabase.getInstance().getReference()
-                .child("Sender").child("tel"+phone).child(alarmClock.getKey()).setValue(alarmClock)
+                .child("Sender").
+            //    child("tel"+phone).
+                child(alarmClock.getKey()).setValue(alarmClock)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     // بفحص اذا الاشي الي نحفظ تكبن ولا لا
                     @Override

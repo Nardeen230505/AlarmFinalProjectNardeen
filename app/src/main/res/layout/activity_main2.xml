@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/backk"
+    android:background="@drawable/white"
     tools:context=".MainActivity2">
 
     <SearchView
@@ -29,9 +29,10 @@
         android:id="@+id/btnsend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00FFFFFF"
+        android:backgroundTint="@color/black"
         android:onClick="btnSendBroadcast"
-        android:text="send broadcast" />
+        android:text="send broadcast"
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

@@ -39,6 +39,7 @@ import java.util.Calendar;
 
 import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmAdapter;
 import ow.nardeen.alarmfinalprojectnardeen.Data.AlarmClock;
+import ow.nardeen.alarmfinalprojectnardeen.Data.Profile;
 
 /**
  * هاي الmain activity الشاشة الرتيسية
@@ -84,9 +85,7 @@ public class MainActivity2 extends AppCompatActivity {
         // تابع لخطوة 3 - ربط قائمة العرض بالوسيط
         lstview.setAdapter(alarmAdapter);
 
-        //تشغيل "مراقب" على قاعدة البيانات
-        // ويقوم بتنظيف المعطيات الموجة (حذفها) وتنزيل المعلومات الجديدة
-        readAlarmFromFireBase();
+
 
 
     }
@@ -98,18 +97,52 @@ public class MainActivity2 extends AppCompatActivity {
         {
             isSender=getIntent().getBooleanExtra("isSender",true);
         }
+        if (isSender)
+        {
+            //تشغيل "مراقب" على قاعدة البيانات
+            // ويقوم بتنظيف المعطيات الموجة (حذفها) وتنزيل المعلومات الجديدة
+            readAlarmFromFireBase("");
+        }
+        else {
+            readProfileFromFirebase();
+        }
+    }
+    private void readProfileFromFirebase()
+    {
+        String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        FirebaseDatabase.getInstance().getReference().child("Profile").
+                child(owner).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getChildren();
+                        for (DataSnapshot d:snapshot.getChildren())
+                        {
+
+                            Profile profile = d.getValue(Profile.class); //
+                            readAlarmFromFireBase(profile.getPhoneNumber());
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
     private void readAlarmFromFireBase(String phone)
     {
         //مؤشر لجذر قاعدة البيانات التابعة للمشروع
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         // listener لمراقبة أي تغيير يحدث تحت الجذر المحدد
         // أي تغيير بقيمة صفة او حذف او اضافة كائن يتم اعلام الlistener
         //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         FirebaseDatabase.getInstance().getReference()
-                .child("Sender").child("tel"+phone).addValueEventListener(new ValueEventListener() {
+                .child("Sender").orderByChild("phNo").equalTo(phone).
+              //  child("tel"+phone).
+                addValueEventListener(new ValueEventListener() {
                     /**
                      * دالة معالجة حدث عند تغيير اي قيمة
                      * @param snapshot يحوي نسخة عن كل المعطيات تحت العنوان المُراقب - العنوان المراقب يعني العنوان الي حاطة عليه ليسينير-
@@ -130,6 +163,7 @@ public class MainActivity2 extends AppCompatActivity {
                             //d يمر على جميع قيم مبنى المعطيات
 
                             AlarmClock alarm=d.getValue(AlarmClock.class); //استخراج الكائن المحفوظ
+
                             alarmAdapter.add(alarm); //اضافة كائن للوسيط
 //                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
 //                    {
@@ -138,12 +172,12 @@ public class MainActivity2 extends AppCompatActivity {
                                 //todo delete past alarms
                             }
                             else
-                            if (!isSender) {// i am receiver i am not sender
+                            if (!isSender &&  phone.length()>0) {// i am receiver i am not sender
 
                                 //todo check scheduled list. add to scheduled list
 
                                 FirebaseDatabase.getInstance().getReference()
-                                        .child("Receiver").child(alarm.getOwner()).child(alarm.getKey()).setValue(alarm)
+                                        .child("Receiver").child("tel"+phone).child(alarm.getKey()).setValue(alarm)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             // بفحص اذا الاشي الي نحفظ تكبن ولا لا
                                             @Override

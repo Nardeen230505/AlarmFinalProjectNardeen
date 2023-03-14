@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/backk"
+    android:background="@drawable/white"
     tools:context=".SignUpActivity">
 
     <EditText
@@ -45,7 +45,8 @@
         android:id="@+id/btnSaveSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00FFFFFF"
         android:layout_margin="30dp"
-        android:text="Save" />
+        android:backgroundTint="@color/black"
+        android:text="Save"
+        android:textColor="@color/white" />
 </LinearLayout>

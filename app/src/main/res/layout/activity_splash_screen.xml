@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/download"
+    android:background="@drawable/pinkk"
     android:orientation="vertical"
-    tools:context=".SplashScreen">
-
-    <TextView
-        android:id="@+id/tvWelcme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Nardeen's Alarm"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
-</LinearLayout>
+    tools:context=".SplashScreen"/>

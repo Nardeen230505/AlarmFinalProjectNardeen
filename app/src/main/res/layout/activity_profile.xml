@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/backk"
+    android:background="@drawable/white"
     tools:context=".ProfileActivity">
 
     <EditText
@@ -14,7 +14,7 @@
         android:layout_height="61dp"
         android:drawableLeft="@drawable/account"
         android:drawableTint="#FDF9F9"
-        android:hint=" First Name" />
+        android:hint="  First Name" />
 
     <EditText
         android:id="@+id/edSecondName"
@@ -22,7 +22,7 @@
         android:layout_height="60dp"
         android:drawableLeft="@drawable/account"
         android:drawableTint="#F8F4F4"
-        android:hint=" Second Name" />
+        android:hint="  Second Name" />
 
     <EditText
         android:id="@+id/edPhoneP"
@@ -30,7 +30,7 @@
         android:layout_height="62dp"
         android:drawableLeft="@android:drawable/ic_menu_call"
         android:drawableTint="#F6FBFB"
-        android:hint=" Phone" />
+        android:hint="  Phone" />
 
     <Button
         android:id="@+id/btnSaveProfile"
