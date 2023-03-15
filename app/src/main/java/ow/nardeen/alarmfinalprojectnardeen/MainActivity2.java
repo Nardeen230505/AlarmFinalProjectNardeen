@@ -104,9 +104,10 @@ public class MainActivity2 extends AppCompatActivity {
             readAlarmFromFireBase("");
         }
         else {
-            readProfileFromFirebase();
+            readAlarmFromFireBase(Profile.phoneNumber);
         }
     }
+    //todo read profile for is i sender and phone
     private void readProfileFromFirebase()
     {
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -163,6 +164,7 @@ public class MainActivity2 extends AppCompatActivity {
                             //d يمر على جميع قيم مبنى المعطيات
 
                             AlarmClock alarm=d.getValue(AlarmClock.class); //استخراج الكائن المحفوظ
+
 
                             alarmAdapter.add(alarm); //اضافة كائن للوسيط
 //                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
