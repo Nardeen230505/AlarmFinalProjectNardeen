@@ -1,10 +1,8 @@
 package ow.nardeen.alarmfinalprojectnardeen;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +17,6 @@ import ow.nardeen.alarmfinalprojectnardeen.Data.Profile;
 
 public class SplashScreen extends AppCompatActivity {
 
-    public static boolean isSender=false;
 /*
 اول شاشة بتفتح لما بتم التشغيل
  */
@@ -45,57 +42,61 @@ public class SplashScreen extends AppCompatActivity {
                 // فحص هل تم االدخول مسبقا
                 FirebaseAuth auth = FirebaseAuth.getInstance();
                 if (auth.getCurrentUser() == null) {
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this); //بنّاء الديالوج
-                    builder.setTitle("Select user type");
-                    builder.setMessage("Are you sender or receiver?");
-                    builder.setPositiveButton("Receiver", new DialogInterface.OnClickListener() { // هاي الدالة بتطلعلي زي هودعا صغيرة الي بقولولها ديالوج الي اذا ضغطت على الزر يس بسالي اذا مااكدة اني دطلع او لا
-                        // هاد مأزين للضغط على الزر يس سيعتها بطلعلي ديالوج وبعمل شو مكتوب داخل الدالة
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i)
-                        //واجهة للديالوج
-                        {
-                            dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
-                            Intent i2=new Intent(SplashScreen.this,SihgnInActivity.class);
+                    Intent i2=new Intent(SplashScreen.this,SihgnInActivity.class);
                             i2.putExtra("isSender", false);
-                            isSender=false;
+
                             startActivity(i2);
 
                             //الخروج من الشاشة
                             finish();
-                        }
-                    });
-                    //هون اذا انا بديش اعمل ساين اوت للحساب
 
-                    builder.setNegativeButton("Sender", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i)
-                        {
-                            dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
-                            Intent i1=new Intent(SplashScreen.this,SihgnInActivity.class);
-                            i1.putExtra("isSender", true);
-                            startActivity(i1);
-                            isSender=true;
-                            //الخروج من الشاشة
-                            finish();
-                            dialogInterface.cancel(); // اخفاء شاشة الديالوج بدون الحفظ في الذاكرة
-                        }
-                    });
-
-                    // بناء الديالوج
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-
-
-
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(SplashScreen.this); //بنّاء الديالوج
+//                    builder.setTitle("Select user type");
+//                    builder.setMessage("Are you sender or receiver?");
+//                    builder.setPositiveButton("Receiver", new DialogInterface.OnClickListener() { // هاي الدالة بتطلعلي زي هودعا صغيرة الي بقولولها ديالوج الي اذا ضغطت على الزر يس بسالي اذا مااكدة اني دطلع او لا
+//                        // هاد مأزين للضغط على الزر يس سيعتها بطلعلي ديالوج وبعمل شو مكتوب داخل الدالة
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i)
+//                        //واجهة للديالوج
+//                        {
+//                            dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
+//                            Intent i2=new Intent(SplashScreen.this,SihgnInActivity.class);
+//                            i2.putExtra("isSender", false);
+//                            isSender=false;
+//                            startActivity(i2);
+//
+//                            //الخروج من الشاشة
+//                            finish();
+//                        }
+//                    });
+//                    //هون اذا انا بديش اعمل ساين اوت للحساب
+//
+//                    builder.setNegativeButton("Sender", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i)
+//                        {
+//                            dialogInterface.dismiss(); //إخفاء الديالوج مع الحفظ في الذاكرة
+//                            Intent i1=new Intent(SplashScreen.this,SihgnInActivity.class);
+//                            i1.putExtra("isSender", true);
+//                            startActivity(i1);
+//                            isSender=true;
+//                            //الخروج من الشاشة
+//                            finish();
+//                            dialogInterface.cancel(); // اخفاء شاشة الديالوج بدون الحفظ في الذاكرة
+//                        }
+//                    });
+//
+//                    // بناء الديالوج
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//
+//
+//
 
 
                 }
                 else {
-                    Intent i = new Intent(SplashScreen.this, MainActivity2.class);
-                    startActivity(i);
-
-                    finish();
+                    readProfileFromFirebase();
 
                 }
             }
@@ -103,5 +104,32 @@ public class SplashScreen extends AppCompatActivity {
         h.postDelayed(r,2000);
     }
 
+    private void readProfileFromFirebase()
+    {
+        String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        FirebaseDatabase.getInstance().getReference().child("Profile"). // بنحفظ تحت عنوان بروفايل
+                child(owner).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        snapshot.getChildren();
+                        for (DataSnapshot d:snapshot.getChildren())
+                        {
+
+                            Profile profile = d.getValue(Profile.class); //
+                            Intent i = new Intent(SplashScreen.this, MainActivity2.class);
+                            startActivity(i);
+
+                            finish();
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+    }
 
 }

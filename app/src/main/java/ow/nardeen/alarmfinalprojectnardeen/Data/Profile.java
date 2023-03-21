@@ -5,7 +5,7 @@ public class Profile
     public static String phoneNumber="";
     private String  FirstName, SecondName;
     private String owner, key;
-    private boolean isSender;
+    public static boolean isSender=true;
 
     public boolean isSender() {
         return isSender;

@@ -15,7 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -49,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
                 CheckAndSave();
             }
         });
-        readTaskFromFirebase();
+        readProfileFromFirebase();
 
     }
     public void CheckAndSave()
@@ -58,12 +57,13 @@ public class ProfileActivity extends AppCompatActivity {
         String SecondName = edSecondName.getText().toString();
         String Phonep = edPhoneP.getText().toString();
 
+
         if (profile==null)
         {
             toUpdate=false;
             profile=new Profile();
         }
-
+        profile.setSender(sender.isSelected());
         profile.setPhoneNumber(Phonep);
         profile.setFirstName(FirstName);
         profile.setSecondName(SecondName);
@@ -78,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         String key="";
         if (!toUpdate) {
             key = FirebaseDatabase.getInstance().getReference()
-                    .child("Profile").child(owner).getKey();
+                    .child("Profile").child(owner).push().getKey();
             profile.setKey(key);
         }
         else {
@@ -101,7 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void readTaskFromFirebase()
+    private void readProfileFromFirebase()
     {
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -119,6 +119,8 @@ public class ProfileActivity extends AppCompatActivity {
                     edFirstName.setText(profile.getFirstName()); //استخراج الحقول
                     edSecondName.setText(profile.getSecondName());
                     edPhoneP.setText(profile.getPhoneNumber());
+                    sender.setSelected(profile.isSender());
+                    receiver.setSelected(!profile.isSender());
 
                 }
             }

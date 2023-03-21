@@ -94,7 +94,7 @@ public class SihgnInActivity extends AppCompatActivity {
                     //دالة تؤكد اذا كلو زابط
                     if (task.isSuccessful()){
                         Toast.makeText(SihgnInActivity.this, "SUCCESSFUL", Toast.LENGTH_SHORT).show(); // التوست هاي الي بتطلعلنا زي هودعا لفترة صغيرة من الوقت وبتطلعلنا شو كتبنا ببن جرشايم
-                        Intent i=new Intent(SihgnInActivity.this,MainActivity2.class);
+                        Intent i=new Intent(SihgnInActivity.this,ProfileActivity.class);
                         i.putExtra("isSender", isSender);
                         startActivity(i);
                         finish();

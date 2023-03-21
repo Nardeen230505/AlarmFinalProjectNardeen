@@ -1,5 +1,7 @@
 package ow.nardeen.alarmfinalprojectnardeen;
 
+import static ow.nardeen.alarmfinalprojectnardeen.Data.Profile.isSender;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,7 +54,7 @@ public class MainActivity2 extends AppCompatActivity {
     private ListView list1;    //قائمة عرض المهمات
     private ImageButton imgbtnAdd;
     AlarmAdapter alarmAdapter; // بناء الوسيط AlarmAdapter
-    private boolean isSender=true;
+   // public static boolean isSender=true;
    // Adapter - يعمل كائن الادابتر بين
     //AdapterView
     // وبين البيانات الاساسية للعرض. يوفر الادابتر الوصول لعناصر البيانات. الادابتر مسؤول ايضا عن عمل view لكل item بال data set
@@ -65,9 +67,13 @@ public class MainActivity2 extends AppCompatActivity {
 
         setContentView(R.layout.activity_main2);
         imgbtnAdd=findViewById(R.id.imgbtnAdd);
-        if (getIntent()!=null && getIntent().hasExtra("isSender"))
+//        if (getIntent()!=null && getIntent().hasExtra("isSender"))
+//        {
+//            isSender=getIntent().getBooleanExtra("isSender",true);
+//        }
+        if(isSender==false)
         {
-            isSender=getIntent().getBooleanExtra("isSender",true);
+            imgbtnAdd.setVisibility(View.GONE); //اذا انا مش سيندير يعني ريسيفر معناتو كباس الاضافة بنخفي
         }
         imgbtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,18 +99,18 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (getIntent()!=null && getIntent().hasExtra("isSender"))
-        {
-            isSender=getIntent().getBooleanExtra("isSender",true);
-        }
-        if (isSender)
+//        if (getIntent()!=null && getIntent().hasExtra("isSender"))
+//        {
+//            isSender=getIntent().getBooleanExtra("isSender",true);
+//        }
+        if (Profile.isSender) // اذا انا سيندر
         {
             //تشغيل "مراقب" على قاعدة البيانات
             // ويقوم بتنظيف المعطيات الموجة (حذفها) وتنزيل المعلومات الجديدة
             readAlarmFromFireBase("");
         }
         else {
-            readAlarmFromFireBase(Profile.phoneNumber);
+            readAlarmFromFireBase(Profile.phoneNumber); // اذا انا ريسيفر بروح بقرا من الفاير بيس حسب نمرة التلفون
         }
     }
     //todo read profile for is i sender and phone
@@ -132,7 +138,7 @@ public class MainActivity2 extends AppCompatActivity {
                     }
                 });
     }
-    private void readAlarmFromFireBase(String phone)
+    private void readAlarmFromFireBase(String phone) // قراءة من الفاير بيس حسب نمرة التلفون
     {
         //مؤشر لجذر قاعدة البيانات التابعة للمشروع
         // listener لمراقبة أي تغيير يحدث تحت الجذر المحدد
@@ -141,7 +147,7 @@ public class MainActivity2 extends AppCompatActivity {
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         FirebaseDatabase.getInstance().getReference()
-                .child("Sender").orderByChild("phNo").equalTo(phone).
+                .child("Sender").orderByChild("phNo").equalTo(phone). // يتم الحفظ تحت عنوان السيندر
               //  child("tel"+phone).
                 addValueEventListener(new ValueEventListener() {
                     /**
@@ -169,17 +175,17 @@ public class MainActivity2 extends AppCompatActivity {
                             alarmAdapter.add(alarm); //اضافة كائن للوسيط
 //                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
 //                    {
-                            if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
+                            if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis()) // بفحص اذا وقت السيعة الحالية اكبر من الوقت الي اخترتو بالكالندر يعني وقت المهمة الي عملتلها زيمون صار رايح يعني لازم امحاها
                             {
                                 //todo delete past alarms
                             }
                             else
-                            if (!isSender &&  phone.length()>0) {// i am receiver i am not sender
+                            if (!isSender &&  phone.length()>0) {// i am receiver i am not sender and the phone number longer than 0
 
                                 //todo check scheduled list. add to scheduled list
 
                                 FirebaseDatabase.getInstance().getReference()
-                                        .child("Receiver").child("tel"+phone).child(alarm.getKey()).setValue(alarm)
+                                        .child("Receiver").child("tel"+phone).child(alarm.getKey()).setValue(alarm) // هون بحفظ تحت عنوان الريسيفر وحسب نمرة التلفون
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             // بفحص اذا الاشي الي نحفظ تكبن ولا لا
                                             @Override
@@ -212,10 +218,8 @@ public class MainActivity2 extends AppCompatActivity {
                                         });
 
 
-
-
-                                Calendar instance = Calendar.getInstance();
-                                instance.setTimeInMillis(alarm.getTimeMils());
+                                Calendar instance = Calendar.getInstance(); // بناء كائن من نوع كالندر
+                                instance.setTimeInMillis(alarm.getTimeMils()); // بغير الوقت تبع الكائن الي بنيتو لوقت الكائن الي من نوع منبه
                                 Toast.makeText(MainActivity2.this, "" + instance, Toast.LENGTH_SHORT).show();
                                 Log.d("TAGG", instance.getTime() + " timed");
                                 setAlarm(alarm.getTimeMils());
@@ -311,7 +315,6 @@ public class MainActivity2 extends AppCompatActivity {
 
                                     }
                                 });
-
 
 
 
