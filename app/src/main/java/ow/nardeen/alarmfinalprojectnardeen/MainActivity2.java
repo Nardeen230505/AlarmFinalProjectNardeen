@@ -145,9 +145,10 @@ public class MainActivity2 extends AppCompatActivity {
         // أي تغيير بقيمة صفة او حذف او اضافة كائن يتم اعلام الlistener
         //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+// todo mistake
         FirebaseDatabase.getInstance().getReference()
-                .child("Sender").orderByChild("phNo").equalTo(phone). // يتم الحفظ تحت عنوان السيندر
+                .child("Sender").
+                //orderByChild("phNo").equalTo(phone). // يتم الحفظ تحت عنوان السيندر
               //  child("tel"+phone).
                 addValueEventListener(new ValueEventListener() {
                     /**
@@ -171,8 +172,8 @@ public class MainActivity2 extends AppCompatActivity {
 
                             AlarmClock alarm=d.getValue(AlarmClock.class); //استخراج الكائن المحفوظ
 
-
-                            alarmAdapter.add(alarm); //اضافة كائن للوسيط
+                            if (alarm.getPhNo().equals(Profile.phoneNumber))
+                                 alarmAdapter.add(alarm); //اضافة كائن للوسيط
 //                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
 //                    {
                             if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis()) // بفحص اذا وقت السيعة الحالية اكبر من الوقت الي اخترتو بالكالندر يعني وقت المهمة الي عملتلها زيمون صار رايح يعني لازم امحاها
