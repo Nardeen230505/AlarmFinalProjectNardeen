@@ -64,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
             toUpdate=false;
             profile=new Profile();
         }
-        profile.setSender(sender.isSelected());
+        profile.setSender(sender.isChecked());
         profile.setPhoneNumber(Phonep);
         profile.setFirstName(FirstName);
         profile.setSecondName(SecondName);
@@ -123,8 +123,8 @@ public class ProfileActivity extends AppCompatActivity {
                     edFirstName.setText(profile.getFirstName()); //استخراج الحقول
                     edSecondName.setText(profile.getSecondName());
                     edPhoneP.setText(profile.getPhoneNumber());
-                    sender.setSelected(profile.isSender());
-                    receiver.setSelected(!profile.isSender());
+                    sender.setChecked(profile.isSender());
+                    receiver.setChecked(!profile.isSender());
 
                 }
             }

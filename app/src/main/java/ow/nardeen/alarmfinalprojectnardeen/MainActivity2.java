@@ -35,6 +35,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
@@ -145,10 +146,22 @@ public class MainActivity2 extends AppCompatActivity {
         // أي تغيير بقيمة صفة او حذف او اضافة كائن يتم اعلام الlistener
         //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
-// todo mistake
-        FirebaseDatabase.getInstance().getReference()
-                .child("Sender").
-                //orderByChild("phNo").equalTo(phone). // يتم الحفظ تحت عنوان السيندر
+// todo mistake`
+        Query sender;
+        if (phone.length()!=0)
+        {
+          sender=  FirebaseDatabase.getInstance().getReference()
+                  .child("Sender").
+                    orderByChild("phNo").equalTo(phone);
+
+        }
+        else
+        {
+            sender  = FirebaseDatabase.getInstance().getReference()
+                .child("Sender").orderByKey();
+        }
+        sender.
+               // orderByChild("phNo").equalTo(phone). // يتم الحفظ تحت عنوان السيندر
               //  child("tel"+phone).
                 addValueEventListener(new ValueEventListener() {
                     /**
@@ -172,11 +185,12 @@ public class MainActivity2 extends AppCompatActivity {
 
                             AlarmClock alarm=d.getValue(AlarmClock.class); //استخراج الكائن المحفوظ
 
-                            if (alarm.getPhNo().equals(Profile.phoneNumber))
+                           //
+                            // .if (alarm.getPhNo().equals(Profile.phoneNumber))
                                  alarmAdapter.add(alarm); //اضافة كائن للوسيط
 //                    if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis())
 //                    {
-                            if (alarm.getTimeMils()>Calendar.getInstance().getTimeInMillis()) // بفحص اذا وقت السيعة الحالية اكبر من الوقت الي اخترتو بالكالندر يعني وقت المهمة الي عملتلها زيمون صار رايح يعني لازم امحاها
+                            if (alarm.getTimeMils()<Calendar.getInstance().getTimeInMillis()) // بفحص اذا وقت السيعة الحالية اكبر من الوقت الي اخترتو بالكالندر يعني وقت المهمة الي عملتلها زيمون صار رايح يعني لازم امحاها
                             {
                                 //todo delete past alarms
                             }
@@ -193,7 +207,7 @@ public class MainActivity2 extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful())
                                                 {
-                                                    finish();
+                                                   // finish();
                                                     // addToGoogleCalender();
                                                     Toast.makeText(MainActivity2.this,"added successfully", Toast.LENGTH_SHORT).show();
                                                     // scheduleTime();//for example
