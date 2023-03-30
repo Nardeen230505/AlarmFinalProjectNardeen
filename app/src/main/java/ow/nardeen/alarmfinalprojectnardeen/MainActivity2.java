@@ -146,7 +146,7 @@ public class MainActivity2 extends AppCompatActivity {
         // أي تغيير بقيمة صفة او حذف او اضافة كائن يتم اعلام الlistener
         //عند حدوت التغيير يتم تنزيل او تحميل كل المعطيات الموجودة تحت الجذر
         String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
-// todo mistake`
+
         Query sender;
         if (phone.length()!=0)
         {
