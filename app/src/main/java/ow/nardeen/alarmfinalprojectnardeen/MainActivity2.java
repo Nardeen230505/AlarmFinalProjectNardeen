@@ -3,6 +3,7 @@ package ow.nardeen.alarmfinalprojectnardeen;
 import static ow.nardeen.alarmfinalprojectnardeen.Data.Profile.isSender;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -158,7 +159,7 @@ public class MainActivity2 extends AppCompatActivity {
         else
         {
             sender  = FirebaseDatabase.getInstance().getReference()
-                .child("Sender").orderByKey();
+                .child("Sender");
         }
         sender.
                // orderByChild("phNo").equalTo(phone). // يتم الحفظ تحت عنوان السيندر
@@ -193,6 +194,13 @@ public class MainActivity2 extends AppCompatActivity {
                             if (alarm.getTimeMils()<Calendar.getInstance().getTimeInMillis()) // بفحص اذا وقت السيعة الحالية اكبر من الوقت الي اخترتو بالكالندر يعني وقت المهمة الي عملتلها زيمون صار رايح يعني لازم امحاها
                             {
                                 //todo delete past alarms
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("Sender").child(alarm.getKey()).removeValue(new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                Toast.makeText(MainActivity2.this, "alarm deleted", Toast.LENGTH_LONG).show();
+                                            }
+                                        });
                             }
                             else
                             if (!isSender &&  phone.length()>0) {// i am receiver i am not sender and the phone number longer than 0
